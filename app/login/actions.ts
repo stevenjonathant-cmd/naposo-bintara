@@ -5,7 +5,11 @@ import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 export async function signInWithEmail(formData: FormData) {
   const email = String(formData.get("email") ?? "");
-  if (!email || !isSupabaseConfigured()) {
+  if (!email) {
+    redirect("/login?status=email");
+  }
+
+  if (!isSupabaseConfigured()) {
     redirect("/login?status=demo");
   }
 

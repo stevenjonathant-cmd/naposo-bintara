@@ -20,10 +20,13 @@ export default function LoginPage({ searchParams }: { searchParams?: { status?: 
             Supabase belum terbaca oleh deployment ini. Pastikan URL dan publishable key sudah ada di Vercel, lalu redeploy.
           </p>
         ) : null}
+        {searchParams?.status === "email" ? (
+          <p className="mt-4 rounded bg-mango/25 p-3 text-sm font-bold text-ink">Masukkan email terlebih dahulu.</p>
+        ) : null}
         <form action={signInWithEmail} className="mt-6 grid gap-4">
           <label className="grid gap-1 text-sm font-bold text-ink/70">
             Email
-            <input type="email" placeholder="nama@email.com" className="focus-ring rounded border border-ink/15 bg-paper px-3 py-3 text-ink" />
+            <input name="email" type="email" placeholder="nama@email.com" className="focus-ring rounded border border-ink/15 bg-paper px-3 py-3 text-ink" />
           </label>
           <button className="focus-ring rounded bg-ember px-4 py-3 font-black text-white shadow-glow" type="submit">
             Kirim magic link
