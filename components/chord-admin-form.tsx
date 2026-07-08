@@ -1,5 +1,5 @@
-import { Music, Save } from "lucide-react";
-import { createSong, updateSong } from "@/app/admin/actions";
+import { Music, Save, Trash2 } from "lucide-react";
+import { createSong, deleteSong, updateSong } from "@/app/admin/actions";
 import type { Song } from "@/lib/types";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
@@ -102,6 +102,13 @@ export function ChordAdminForm({ songs }: { songs: Song[] }) {
                 </Field>
                 <button className="focus-ring inline-flex w-fit items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-black text-white">
                   <Save size={16} /> Update chord
+                </button>
+              </form>
+              <form action={deleteSong} className="mt-3 rounded border border-ember/20 bg-ember/10 p-3">
+                <input type="hidden" name="song_id" value={song.id} />
+                <p className="text-xs font-bold text-ember/80">Hapus entry ini kalau chord sudah tidak dipakai atau salah upload.</p>
+                <button className="focus-ring mt-2 inline-flex items-center gap-2 rounded bg-ember px-4 py-2 text-sm font-black text-white">
+                  <Trash2 size={16} /> Delete chord
                 </button>
               </form>
             </details>

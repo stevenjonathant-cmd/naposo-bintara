@@ -245,6 +245,17 @@ export async function updateSong(formData: FormData) {
   redirect("/admin/chords?saved=chord-updated");
 }
 
+export async function deleteSong(formData: FormData) {
+  const supabase = await requireAdmin();
+  const songId = text(formData, "song_id");
+
+  await supabase.from("song_images").delete().eq("song_id", songId);
+  await supabase.from("songs").delete().eq("id", songId);
+
+  refresh();
+  redirect("/admin/chords?saved=chord-deleted");
+}
+
 export async function createFinanceReport(formData: FormData) {
   const supabase = await requireAdmin();
   const {
