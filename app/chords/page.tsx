@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Disc3, Hash, Music2, Search } from "lucide-react";
+import { ChordImageViewer } from "@/components/chord-image-viewer";
 import { ChordTransposer } from "@/components/chord-transposer";
 import { getSongs } from "@/lib/data";
 
@@ -49,9 +49,9 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
 
       <div className="mt-8 grid gap-5">
         {songs.map((song) => (
-          <article key={song.id} className="glass-panel grid gap-5 rounded p-4 lg:grid-cols-[260px_1fr]">
-            <div className="relative aspect-[3/4] overflow-hidden rounded bg-paper">
-              {song.image_urls[0] ? <Image src={song.image_urls[0]} alt={song.title} fill className="object-cover" /> : null}
+          <article key={song.id} className="glass-panel grid gap-5 rounded p-4 xl:grid-cols-[minmax(420px,0.95fr)_1fr]">
+            <div>
+              <ChordImageViewer images={song.image_urls} title={song.title} />
             </div>
             <div>
               <div className="flex flex-wrap items-start justify-between gap-4">

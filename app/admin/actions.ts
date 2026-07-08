@@ -14,7 +14,7 @@ function bool(formData: FormData, key: string) {
 
 function list(value: string) {
   return value
-    .split(",")
+    .split(/[,\n]/)
     .map((item) => item.trim())
     .filter(Boolean);
 }
@@ -192,6 +192,57 @@ export async function createSong(formData: FormData) {
 
   refresh();
   redirect("/admin/chords?saved=chord");
+}
+
+export async function updateSong(formData: FormData) {
+  const supabase = await requireAdmin();
+  const songId = text(formData, "song_id");
+  const imageUrls = list(text(formData, "image_urls"));
+  const imageFiles = fileList(formData, "image_files");
+
+  await supabase
+    .from("songs")
+    .update({
+      title: text(formData, "title"),
+      category: text(formData, "category") || "General",
+      song_number: text(formData, "song_number") || null,
+      original_key: text(formData, "original_key") || null,
+      chord_text: text(formData, "chord_text") || null,
+      tags: list(text(formData, "tags"))
+    })
+    .eq("id", songId);
+
+  const uploadedUrls: string[] = [];
+  for (let index = 0; index < imageFiles.length; index += 1) {
+    const file = imageFiles[index];
+    const extension = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
+    const path = `${songId}/${Date.now()}-${index}.${extension}`;
+    const { error } = await supabase.storage.from("chord-images").upload(path, file, {
+      contentType: file.type || "image/jpeg",
+      upsert: false
+    });
+
+    if (!error) {
+      const { data } = supabase.storage.from("chord-images").getPublicUrl(path);
+      uploadedUrls.push(data.publicUrl);
+    }
+  }
+
+  const allImages = [...imageUrls, ...uploadedUrls];
+  await supabase.from("song_images").delete().eq("song_id", songId);
+
+  if (allImages.length > 0) {
+    await supabase.from("song_images").insert(
+      allImages.map((imagePath, index) => ({
+        song_id: songId,
+        image_path: imagePath,
+        sort_order: index
+      }))
+    );
+  }
+
+  refresh();
+  redirect("/admin/chords?saved=chord-updated");
 }
 
 export async function createFinanceReport(formData: FormData) {

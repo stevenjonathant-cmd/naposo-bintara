@@ -1,5 +1,5 @@
 import { Music, Save } from "lucide-react";
-import { createSong } from "@/app/admin/actions";
+import { createSong, updateSong } from "@/app/admin/actions";
 import type { Song } from "@/lib/types";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
@@ -15,7 +15,7 @@ const inputClass = "focus-ring rounded border border-ink/15 bg-white px-3 py-2 t
 
 export function ChordAdminForm({ songs }: { songs: Song[] }) {
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <div className="grid gap-6">
       <form action={createSong} className="glass-panel rounded p-5">
         <div className="flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded bg-ember text-white">
@@ -46,7 +46,7 @@ export function ChordAdminForm({ songs }: { songs: Song[] }) {
             <input className={inputClass} name="image_files" type="file" accept="image/jpeg,image/png,image/webp" multiple />
           </Field>
           <Field label="URL gambar chord cadangan (opsional)">
-            <textarea className={inputClass} name="image_urls" rows={3} placeholder="https://... kalau file sudah ada di tempat lain" />
+            <textarea className={inputClass} name="image_urls" rows={3} placeholder="https://... kalau file sudah ada di tempat lain. Bisa satu URL per baris." />
           </Field>
         </div>
         <button className="focus-ring mt-4 inline-flex items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-black text-white">
@@ -54,19 +54,60 @@ export function ChordAdminForm({ songs }: { songs: Song[] }) {
         </button>
       </form>
 
-      <aside className="glass-panel rounded p-5">
-        <p className="text-sm font-black uppercase tracking-wide text-ember">Database chord</p>
-        <p className="mt-3 text-5xl font-black text-ink">{songs.length}</p>
-        <p className="mt-2 text-sm font-semibold text-graphite/65">chord tersimpan dan tampil di halaman Buku Ende Chords.</p>
-        <div className="mt-5 grid gap-3">
-          {songs.slice(0, 8).map((song) => (
-            <div key={song.id} className="rounded border border-ink/10 bg-white/75 p-3">
-              <p className="text-sm font-black text-ink">{song.song_number ? `No. ${song.song_number} - ` : ""}{song.title}</p>
-              <p className="mt-1 text-xs font-semibold text-graphite/60">{song.original_key ? `Nada dasar: ${song.original_key}` : song.category}</p>
-            </div>
+      <section className="glass-panel rounded p-5">
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-wide text-ember">Edit chord tersimpan</p>
+            <h2 className="mt-2 text-2xl font-black text-ink">Update Entry Buku Ende</h2>
+            <p className="mt-2 text-sm font-semibold text-graphite/65">
+              {songs.length} chord tersimpan. Buka salah satu entry untuk memperbaiki judul, nomor, nada dasar, chord text, atau gambar.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-4">
+          {songs.map((song) => (
+            <details key={song.id} className="rounded border border-ink/10 bg-white/75 p-4">
+              <summary className="cursor-pointer text-base font-black text-ink">
+                {song.song_number ? `No. ${song.song_number} - ` : ""}{song.title}
+                <span className="ml-2 text-xs font-bold text-graphite/55">{song.original_key ? `Nada ${song.original_key}` : song.category}</span>
+              </summary>
+              <form action={updateSong} className="mt-4 grid gap-3">
+                <input type="hidden" name="song_id" value={song.id} />
+                <div className="grid gap-3 md:grid-cols-2">
+                  <Field label="No">
+                    <input className={inputClass} name="song_number" defaultValue={song.song_number} />
+                  </Field>
+                  <Field label="Judul">
+                    <input className={inputClass} name="title" defaultValue={song.title} />
+                  </Field>
+                  <Field label="Kategori">
+                    <input className={inputClass} name="category" defaultValue={song.category} />
+                  </Field>
+                  <Field label="Nada dasar original">
+                    <input className={inputClass} name="original_key" defaultValue={song.original_key} />
+                  </Field>
+                </div>
+                <Field label="Tags (pisahkan dengan koma)">
+                  <input className={inputClass} name="tags" defaultValue={song.tags.join(", ")} />
+                </Field>
+                <Field label="Chord + lyrics text">
+                  <textarea className={inputClass} name="chord_text" rows={8} defaultValue={song.chord_text} />
+                </Field>
+                <Field label="Gambar saat ini / URL gambar chord">
+                  <textarea className={inputClass} name="image_urls" rows={Math.max(3, song.image_urls.length)} defaultValue={song.image_urls.join("\n")} />
+                </Field>
+                <Field label="Tambah upload gambar baru">
+                  <input className={inputClass} name="image_files" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+                </Field>
+                <button className="focus-ring inline-flex w-fit items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-black text-white">
+                  <Save size={16} /> Update chord
+                </button>
+              </form>
+            </details>
           ))}
         </div>
-      </aside>
+      </section>
     </div>
   );
 }

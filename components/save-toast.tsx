@@ -7,7 +7,8 @@ const messages: Record<string, string> = {
   roster: "Roster pelayanan berhasil disimpan.",
   finance: "Laporan keuangan berhasil disimpan.",
   user: "Akses anggota berhasil disimpan.",
-  chord: "Buku Ende chord berhasil disimpan."
+  chord: "Buku Ende chord berhasil disimpan.",
+  "chord-updated": "Buku Ende chord berhasil diperbarui."
 };
 
 export function SaveToast({ saved }: { saved?: string }) {
