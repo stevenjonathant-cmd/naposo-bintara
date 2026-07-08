@@ -1,5 +1,5 @@
 import { Mail } from "lucide-react";
-import { signInWithEmail } from "@/app/login/actions";
+import { signInWithEmail, signInWithPassword } from "@/app/login/actions";
 
 export default function LoginPage({ searchParams }: { searchParams?: { status?: string; message?: string } }) {
   return (
@@ -10,8 +10,16 @@ export default function LoginPage({ searchParams }: { searchParams?: { status?: 
         </div>
         <h1 className="mt-5 text-3xl font-black text-ink">Masuk anggota</h1>
         <p className="mt-2 text-sm leading-6 text-ink/70">
-          Hubungkan Supabase Auth untuk mengaktifkan email login. Akun baru akan menunggu approval admin.
+          Masuk dengan email dan password. Admin dapat membuat user dari Supabase dan memberi akses dari dashboard.
         </p>
+        {searchParams?.status === "password-required" ? (
+          <p className="mt-4 rounded bg-mango/25 p-3 text-sm font-bold text-ink">Masukkan email dan password.</p>
+        ) : null}
+        {searchParams?.status === "password-error" ? (
+          <p className="mt-4 rounded bg-ember/10 p-3 text-sm font-bold text-ember">
+            Login password gagal: {searchParams.message ?? "cek email/password."}
+          </p>
+        ) : null}
         {searchParams?.status === "sent" ? (
           <p className="mt-4 rounded bg-teal/10 p-3 text-sm font-bold text-teal">Magic link sudah dikirim ke email.</p>
         ) : null}
@@ -28,12 +36,32 @@ export default function LoginPage({ searchParams }: { searchParams?: { status?: 
             Supabase menolak pengiriman email: {searchParams.message ?? "coba lagi beberapa menit lagi."}
           </p>
         ) : null}
-        <form action={signInWithEmail} className="mt-6 grid gap-4">
+        <form action={signInWithPassword} className="mt-6 grid gap-4">
           <label className="grid gap-1 text-sm font-bold text-ink/70">
             Email
             <input name="email" type="email" placeholder="nama@email.com" className="focus-ring rounded border border-ink/15 bg-paper px-3 py-3 text-ink" />
           </label>
-          <button className="focus-ring rounded bg-ember px-4 py-3 font-black text-white shadow-glow" type="submit">
+          <label className="grid gap-1 text-sm font-bold text-ink/70">
+            Password
+            <input name="password" type="password" placeholder="Password sementara" className="focus-ring rounded border border-ink/15 bg-paper px-3 py-3 text-ink" />
+          </label>
+          <button className="focus-ring rounded bg-ink px-4 py-3 font-black text-white shadow-glow" type="submit">
+            Masuk
+          </button>
+        </form>
+
+        <div className="my-6 flex items-center gap-3 text-xs font-black uppercase tracking-wide text-ink/35">
+          <span className="h-px flex-1 bg-ink/10" />
+          atau
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+
+        <form action={signInWithEmail} className="grid gap-3">
+          <label className="grid gap-1 text-sm font-bold text-ink/70">
+            Email magic link
+            <input name="email" type="email" placeholder="nama@email.com" className="focus-ring rounded border border-ink/15 bg-white px-3 py-3 text-ink" />
+          </label>
+          <button className="focus-ring rounded border border-ink/10 bg-white px-4 py-3 font-black text-ink" type="submit">
             Kirim magic link
           </button>
         </form>
