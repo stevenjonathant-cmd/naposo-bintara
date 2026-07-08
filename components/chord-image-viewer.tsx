@@ -20,7 +20,7 @@ export function ChordImageViewer({ images, title }: { images: string[]; title: s
         onClick={() => setIsOpen(true)}
         className="focus-ring group relative aspect-video overflow-hidden rounded border border-ink/10 bg-white"
       >
-        <Image src={activeImage} alt={title} fill sizes="(min-width: 1024px) 560px, 100vw" className="object-contain p-2" />
+        <Image src={activeImage} alt={title} fill sizes="(min-width: 1024px) 1180px, 100vw" className="object-contain p-2" />
         <span className="absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-ink px-3 py-2 text-xs font-black text-white opacity-95">
           <Maximize2 size={14} /> Lihat full
         </span>
@@ -45,24 +45,26 @@ export function ChordImageViewer({ images, title }: { images: string[]; title: s
       ) : null}
 
       {isOpen ? (
-        <div className="fixed inset-0 z-[80] bg-ink/95 p-3 sm:p-6" role="dialog" aria-modal="true">
-          <div className="flex h-full flex-col gap-3">
-            <div className="flex items-center justify-between gap-3 text-white">
-              <p className="truncate text-sm font-black sm:text-base">{title}</p>
+        <div className="fixed inset-0 z-[80] bg-black" role="dialog" aria-modal="true">
+          <div className="flex h-full flex-col">
+            <div className="absolute left-3 right-3 top-3 z-10 flex items-center justify-between gap-3 text-white">
+              <p className="truncate rounded-full bg-black/65 px-3 py-2 text-sm font-black backdrop-blur sm:text-base">{title}</p>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="focus-ring grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-ink"
+                className="focus-ring grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-ink"
                 aria-label="Tutup gambar"
               >
                 <X size={20} />
               </button>
             </div>
-            <div className="relative min-h-0 flex-1 overflow-hidden rounded bg-white">
-              <Image src={activeImage} alt={title} fill sizes="100vw" className="object-contain p-2 sm:p-4" priority />
+            <div className="chord-fullscreen-stage relative min-h-0 flex-1 overflow-hidden bg-black">
+              <div className="chord-fullscreen-canvas">
+                <Image src={activeImage} alt={title} fill sizes="100vw" className="object-contain" priority />
+              </div>
             </div>
             {images.length > 1 ? (
-              <div className="flex justify-center gap-2 overflow-x-auto">
+              <div className="absolute bottom-3 left-3 right-3 flex justify-center gap-2 overflow-x-auto">
                 {images.map((image, index) => (
                   <button
                     key={image}

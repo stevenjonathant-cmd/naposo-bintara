@@ -42,7 +42,7 @@ export function ChordTransposer({ chordText, originalKey }: { chordText: string;
   const currentKey = keyIndex >= 0 ? sharpKeys[(keyIndex + steps + 120) % 12] : originalKey;
 
   return (
-    <div className="rounded border border-ink/10 bg-white/80 p-4">
+    <div className="rounded border border-ink/10 bg-white/80 p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.2em] text-teal">Transpose</p>
@@ -60,7 +60,7 @@ export function ChordTransposer({ chordText, originalKey }: { chordText: string;
           </button>
         </div>
       </div>
-      <pre className="mt-4 overflow-x-auto whitespace-pre-wrap rounded bg-ink p-4 font-mono text-sm leading-7 text-white">{transposed}</pre>
+      <pre className="mt-4 min-h-[420px] overflow-x-auto whitespace-pre rounded bg-ink p-4 font-mono text-base leading-8 text-white sm:p-6 sm:text-lg sm:leading-9">{transposed}</pre>
     </div>
   );
 }

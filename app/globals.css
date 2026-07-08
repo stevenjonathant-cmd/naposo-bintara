@@ -40,3 +40,19 @@ textarea {
 .eyebrow {
   @apply text-xs font-black uppercase tracking-[0.24em];
 }
+
+.chord-fullscreen-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .chord-fullscreen-canvas {
+    left: 50%;
+    top: 50%;
+    width: 100vh;
+    height: 100vw;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transform-origin: center;
+  }
+}

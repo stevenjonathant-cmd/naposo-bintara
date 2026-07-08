@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { Church, Globe2, LogIn, Menu } from "lucide-react";
+import { Church, Globe2, LogIn, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const nav = [
   { href: "/", label: "Beranda" },
@@ -12,6 +15,8 @@ const nav = [
 ];
 
 export function SiteHeader() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-porcelain/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
@@ -53,13 +58,39 @@ export function SiteHeader() {
             <LogIn size={18} />
           </Link>
           <button
+            type="button"
+            onClick={() => setIsOpen((value) => !value)}
             className="focus-ring grid h-10 w-10 place-items-center rounded-full border border-ink/10 bg-white text-ink md:hidden"
-            aria-label="Open menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
           >
-            <Menu size={20} />
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
+      {isOpen ? (
+        <nav className="border-t border-ink/10 bg-white px-4 py-3 shadow-soft md:hidden" aria-label="Mobile navigation">
+          <div className="grid gap-2">
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="focus-ring rounded px-4 py-3 text-base font-black text-ink transition hover:bg-teal/10"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              href="/?lang=en"
+              onClick={() => setIsOpen(false)}
+              className="focus-ring rounded px-4 py-3 text-base font-black text-ink transition hover:bg-teal/10 sm:hidden"
+            >
+              Switch Language
+            </Link>
+          </div>
+        </nav>
+      ) : null}
     </header>
   );
 }

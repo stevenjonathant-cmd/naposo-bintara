@@ -34,14 +34,14 @@ export default async function ChordDetailPage({ params }: { params: { id: string
         </div>
       </section>
 
-      <section className="mt-6 grid gap-6 xl:grid-cols-[minmax(520px,1fr)_0.85fr]">
+      <section className="mt-6 grid gap-6">
         <div className="glass-panel rounded p-4">
           <ChordImageViewer images={song.image_urls} title={songHeading(song)} />
         </div>
 
         <div className="grid gap-5">
           <div className="glass-panel rounded p-5">
-            <dl className="grid gap-3 text-sm sm:grid-cols-3 xl:grid-cols-1">
+            <dl className="grid gap-3 text-sm sm:grid-cols-3">
               <div className="rounded border border-ink/10 bg-white/70 p-3">
                 <dt className="font-black text-graphite/50">Kategori</dt>
                 <dd className="mt-1 font-black text-ink">{song.category || "-"}</dd>
