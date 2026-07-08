@@ -54,15 +54,36 @@ export async function getEvents(): Promise<Event[]> {
 export async function getSongs(): Promise<Song[]> {
   if (!isSupabaseConfigured()) return sampleSongs;
   const supabase = createClient();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("songs")
-    .select("id, title, category, song_number, tags, song_images(image_path, sort_order)")
+    .select("id, title, category, song_number, original_key, chord_text, tags, song_images(image_path, sort_order)")
     .order("title", { ascending: true });
+
+  if (error) {
+    const { data: fallbackData } = await supabase
+      .from("songs")
+      .select("id, title, category, song_number, tags, song_images(image_path, sort_order)")
+      .order("title", { ascending: true });
+
+    return (fallbackData ?? []).map((song: any) => ({
+      id: song.id,
+      title: song.title,
+      category: song.category,
+      song_number: song.song_number,
+      tags: song.tags ?? [],
+      image_urls: (song.song_images ?? [])
+        .sort((a: any, b: any) => a.sort_order - b.sort_order)
+        .map((image: any) => image.image_path)
+    }));
+  }
+
   return (data ?? []).map((song: any) => ({
     id: song.id,
     title: song.title,
     category: song.category,
     song_number: song.song_number,
+    original_key: song.original_key,
+    chord_text: song.chord_text,
     tags: song.tags ?? [],
     image_urls: (song.song_images ?? [])
       .sort((a: any, b: any) => a.sort_order - b.sort_order)

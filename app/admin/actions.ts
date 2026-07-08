@@ -147,6 +147,8 @@ export async function createSong(formData: FormData) {
       title: text(formData, "title"),
       category: text(formData, "category") || "General",
       song_number: text(formData, "song_number") || null,
+      original_key: text(formData, "original_key") || null,
+      chord_text: text(formData, "chord_text") || null,
       tags: list(text(formData, "tags"))
     })
     .select("id")

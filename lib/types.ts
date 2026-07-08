@@ -29,6 +29,8 @@ export type Song = {
   title: string;
   category: string;
   song_number?: string;
+  original_key?: string;
+  chord_text?: string;
   tags: string[];
   image_urls: string[];
 };

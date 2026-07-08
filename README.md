@@ -42,6 +42,7 @@ Without Supabase env vars, the app uses demo data and opens protected areas with
 4. Add the project URL and anon key to `.env.local`.
 5. Set `NEXT_PUBLIC_SITE_URL` to your local or deployed URL for magic link redirects.
 6. Sign up once on the live site, then run `supabase/make-first-admin.sql` with your email to approve your first admin account.
+7. If upgrading an existing database, run `supabase/chords-upgrade.sql` to add chord metadata/transposition fields.
 
 ## Deployment
 

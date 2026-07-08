@@ -95,6 +95,8 @@ export const songs: Song[] = [
     title: "Buku Ende 356",
     category: "Buku Ende",
     song_number: "356",
+    original_key: "G",
+    chord_text: "G        D/F#       Em\nSai tong ingotonku...\nC        G/B        Am    D\nChord text bisa ditranspose di website.",
     tags: ["ende", "ibadah", "batak"],
     image_urls: ["/placeholder-chord.svg"]
   },
@@ -102,6 +104,8 @@ export const songs: Song[] = [
     id: "ku-mau-cinta-yesus",
     title: "Ku Mau Cinta Yesus",
     category: "Praise",
+    original_key: "C",
+    chord_text: "C          G/B\nKu mau cinta Yesus\nAm         F\nSelamanya",
     tags: ["youth", "praise"],
     image_urls: ["/placeholder-chord.svg"]
   }

@@ -175,17 +175,23 @@ export function AdminForm({ agenda, services, songs, reports, profiles }: AdminF
             <h2 className="text-2xl font-black text-ink">Tambah chord</h2>
           </div>
           <div className="mt-5 grid gap-3">
-            <Field label="Judul lagu">
-              <input className={inputClass} name="title" placeholder="Buku Ende 356" />
+            <Field label="No">
+              <input className={inputClass} name="song_number" placeholder="356" />
+            </Field>
+            <Field label="Judul">
+              <input className={inputClass} name="title" placeholder="Sai Tong Ingotonku" />
             </Field>
             <Field label="Kategori">
               <input className={inputClass} name="category" placeholder="Buku Ende / Praise" />
             </Field>
-            <Field label="Nomor lagu">
-              <input className={inputClass} name="song_number" placeholder="356" />
+            <Field label="Nada dasar original">
+              <input className={inputClass} name="original_key" placeholder="G / C / D / F#" />
             </Field>
             <Field label="Tags (pisahkan dengan koma)">
               <input className={inputClass} name="tags" placeholder="ende, ibadah, youth" />
+            </Field>
+            <Field label="Chord + lyrics text (opsional, bisa ditranspose)">
+              <textarea className={inputClass} name="chord_text" rows={7} placeholder={"G        D/F#       Em\nSai tong ingotonku...\nC        G/B        Am    D"} />
             </Field>
             <Field label="Upload gambar chord">
               <input className={inputClass} name="image_files" type="file" accept="image/jpeg,image/png,image/webp" multiple />

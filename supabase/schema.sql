@@ -58,6 +58,8 @@ create table if not exists public.songs (
   title text not null,
   category text not null default 'General',
   song_number text,
+  original_key text,
+  chord_text text,
   tags text[] not null default '{}',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
