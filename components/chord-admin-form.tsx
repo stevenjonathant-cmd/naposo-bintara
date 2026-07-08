@@ -11,14 +11,14 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-const inputClass = "focus-ring rounded border border-ink/15 bg-white px-3 py-2 text-ink";
+const inputClass = "focus-ring rounded-2xl border border-ink/15 bg-white px-3 py-2 text-ink";
 
 export function ChordAdminForm({ songs }: { songs: Song[] }) {
   return (
     <div className="grid gap-6">
-      <form action={createSong} className="glass-panel rounded p-5">
+      <form action={createSong} className="church-card p-5">
         <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded bg-ember text-white">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-ember text-white">
             <Music size={19} />
           </span>
           <h2 className="text-2xl font-black text-ink">Tambah Buku Ende Chord</h2>
@@ -54,7 +54,7 @@ export function ChordAdminForm({ songs }: { songs: Song[] }) {
         </button>
       </form>
 
-      <section className="glass-panel rounded p-5">
+      <section className="church-card p-5">
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-black uppercase tracking-wide text-ember">Edit chord tersimpan</p>
@@ -67,7 +67,7 @@ export function ChordAdminForm({ songs }: { songs: Song[] }) {
 
         <div className="mt-5 grid gap-4">
           {songs.map((song) => (
-            <details key={song.id} className="rounded border border-ink/10 bg-white/75 p-4">
+            <details key={song.id} className="rounded-[24px] border border-ink/10 bg-neutral-50 p-4">
               <summary className="cursor-pointer text-base font-black text-ink">
                 {song.song_number ? `No. ${song.song_number} - ` : ""}{song.title}
                 <span className="ml-2 text-xs font-bold text-graphite/55">{song.original_key ? `Nada ${song.original_key}` : song.category}</span>

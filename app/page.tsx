@@ -46,42 +46,47 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
   const [agenda, events] = await Promise.all([getWeeklyAgenda(), getEvents()]);
 
   return (
-    <main>
-      <section className="relative overflow-hidden border-b border-ink/10">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-[1.04fr_0.96fr] lg:px-8 lg:py-20">
-          <div className="flex flex-col justify-center">
-            <p className="inline-flex w-fit items-center gap-2 rounded border border-ink/10 bg-white/76 px-3 py-2 text-xs font-black uppercase tracking-[0.2em] text-teal shadow-sm backdrop-blur">
+    <main className="bg-[#f7f7f4]">
+      <section className="relative overflow-hidden bg-white">
+        <div className="mx-auto grid min-h-[calc(100svh-80px)] max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center lg:px-8">
+          <div className="relative z-10 flex flex-col justify-center">
+            <p className="inline-flex w-fit items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-ember shadow-sm">
               <Sparkles size={15} /> NHKBP Bintara
             </p>
-            <h1 className="mt-5 max-w-3xl text-5xl font-black leading-[0.98] text-ink sm:text-6xl lg:text-7xl">
-              Naposo Bintara Ministry Hub
+            <h1 className="mt-6 max-w-4xl text-6xl font-black uppercase leading-[0.88] tracking-tight text-ink sm:text-7xl lg:text-8xl">
+              Naposo Bintara
             </h1>
-            <p className="mt-5 max-w-2xl text-lg font-semibold leading-8 text-graphite/70">
+            <p className="mt-6 max-w-xl text-lg font-bold leading-8 text-graphite/70">
               Agenda mingguan, info kegiatan, roster pelayanan, keuangan, dan chord untuk Naposobulung HKBP Bintara.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="#agenda" className="focus-ring inline-flex items-center gap-2 rounded bg-ink px-5 py-3 font-black text-white shadow-glow">
-              Agenda This Week <ArrowRight size={18} />
+              <Link href="#agenda" className="church-button-dark">
+                Agenda This Week <ArrowRight size={18} />
               </Link>
-              <Link href="/petugas-pelayanan" className="focus-ring inline-flex items-center gap-2 rounded border border-ink/10 bg-white px-5 py-3 font-black text-ink backdrop-blur">
+              <Link href="/petugas-pelayanan" className="church-button-light">
                 Petugas Pelayanan <UsersRound size={18} />
               </Link>
             </div>
           </div>
 
-          <div className="glass-panel rounded p-4 sm:p-5">
-            <div className="rounded bg-ink p-5 text-white">
-              <p className="flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] text-mango">
+          <div className="photo-panel min-h-[560px] rounded-[36px] p-5 shadow-glow sm:p-7">
+            <div className="absolute bottom-7 left-7 right-7">
+              <p className="max-w-xl text-4xl font-black uppercase leading-none text-white sm:text-5xl">
+                Built for worship, service, and community.
+              </p>
+            </div>
+            <div className="ml-auto max-w-sm rounded-[28px] border border-white/15 bg-black/35 p-5 text-white backdrop-blur">
+              <p className="flex items-center gap-2 text-sm font-black uppercase tracking-[0.22em] text-mango">
                 <CalendarDays size={18} /> This Week
               </p>
               <div className="mt-5 grid gap-3">
-                {agenda.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between gap-4 rounded border border-white/10 bg-white/10 p-4">
+                {agenda.slice(0, 4).map((item) => (
+                  <div key={item.id} className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/10 p-4">
                     <div>
                       <p className="text-sm font-black text-white/55">{item.weekday}</p>
                       <p className="mt-1 font-black">{item.title}</p>
                     </div>
-                    <p className="rounded bg-white px-3 py-1 text-sm font-black text-ink">{item.time}</p>
+                    <p className="rounded-full bg-white px-3 py-1 text-sm font-black text-ink">{item.time}</p>
                   </div>
                 ))}
               </div>
@@ -100,16 +105,16 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
             <p className="eyebrow text-ember">Featured</p>
             <h2 className="mt-2 text-3xl font-black text-ink">Next Events</h2>
           </div>
-          <Link href="/events" className="focus-ring inline-flex w-fit items-center gap-2 rounded-full border border-ink/10 bg-white px-4 py-2 text-sm font-black text-ink">
+          <Link href="/events" className="church-button-light w-fit">
             Semua Events <ArrowRight size={16} />
           </Link>
         </div>
         <div className="grid gap-5 lg:grid-cols-2">
           {featuredEvents.map((event) => (
-            <article key={event.title} className="glass-panel overflow-hidden rounded">
-              <div className={`${event.tone} min-h-72 p-6`}>
+            <article key={event.title} className="church-card">
+              <div className={`${event.tone} poster-panel min-h-80 p-7`}>
                 <p className="eyebrow text-white/70">Poster Event</p>
-                <h3 className="mt-8 max-w-md text-5xl font-black leading-none">{event.title}</h3>
+                <h3 className="mt-10 max-w-md text-5xl font-black uppercase leading-none sm:text-6xl">{event.title}</h3>
                 <div className="mt-8 flex flex-wrap gap-3 text-sm font-black">
                   <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2">
                     <CalendarDays size={16} /> {event.date}
@@ -121,7 +126,7 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
               </div>
               <div className="p-5">
                 <p className="text-sm font-semibold leading-6 text-graphite/70">{event.description}</p>
-                <Link href="/events" className="focus-ring mt-5 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-black text-white">
+                <Link href="/events" className="church-button-dark mt-5">
                   Detail Event <Ticket size={16} />
                 </Link>
               </div>
@@ -141,17 +146,17 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
             <p className="eyebrow text-teal">Social</p>
             <h2 className="mt-2 text-3xl font-black text-ink">Instagram Highlights</h2>
           </div>
-          <Link href="https://www.instagram.com/p/DPI-IlTjw4X/" target="_blank" className="focus-ring inline-flex w-fit items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-black text-white">
+          <Link href="https://www.instagram.com/p/DPI-IlTjw4X/" target="_blank" className="church-button-dark w-fit">
             Instagram Naposobulung <Instagram size={16} />
           </Link>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {instagramPosts.map((post) => (
-            <Link key={post.href} href={post.href} target="_blank" className="focus-ring group glass-panel block overflow-hidden rounded">
-              <div className="min-h-52 bg-ink p-5 text-white transition group-hover:bg-teal">
+            <Link key={post.href} href={post.href} target="_blank" className="focus-ring group church-card block">
+              <div className="poster-panel min-h-64 bg-ink p-6 text-white transition group-hover:bg-ember">
                 <Instagram size={24} />
                 <p className="mt-12 text-sm font-black uppercase tracking-[0.24em] text-white/60">{post.label}</p>
-                <h3 className="mt-3 text-2xl font-black leading-tight">{post.title}</h3>
+                <h3 className="mt-3 text-3xl font-black uppercase leading-none">{post.title}</h3>
               </div>
               <div className="flex items-center justify-between p-4 text-sm font-black text-ink">
                 View on Instagram
@@ -163,16 +168,16 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-        <div className="glass-panel flex flex-col justify-between gap-5 rounded p-6 md:flex-row md:items-center">
+        <div className="church-card flex flex-col justify-between gap-5 bg-ink p-7 text-white md:flex-row md:items-center">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.24em] text-ember">Next layer</p>
-            <h2 className="mt-2 text-2xl font-black text-ink">Petugas pelayanan, finance, and chords live after the public agenda.</h2>
+            <h2 className="mt-2 text-3xl font-black uppercase leading-none">Petugas pelayanan, finance, and chords live after the public agenda.</h2>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/petugas-pelayanan" className="focus-ring inline-flex items-center gap-2 rounded bg-ink px-5 py-3 font-black text-white">
+            <Link href="/petugas-pelayanan" className="church-button-light">
               Petugas Pelayanan <ArrowRight size={18} />
             </Link>
-            <Link href="/chords" className="focus-ring inline-flex items-center gap-2 rounded border border-ink/10 bg-white px-5 py-3 font-black text-ink">
+            <Link href="/chords" className="church-button-light">
               Browse Chords <Music2 size={18} />
             </Link>
           </div>

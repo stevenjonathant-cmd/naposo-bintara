@@ -14,11 +14,11 @@ export function EventList({ events }: { events: Event[] }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       {events.map((event) => (
-        <article key={event.id} className="glass-panel rounded p-5">
-          <p className="text-xs font-black uppercase tracking-wide text-ember">
+        <article key={event.id} className="church-card p-5 transition hover:-translate-y-1 hover:shadow-glow">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-ember">
             {formatter.format(new Date(event.event_date))}
           </p>
-          <h3 className="mt-2 text-xl font-black text-ink">{event.title}</h3>
+          <h3 className="mt-3 text-2xl font-black uppercase leading-none text-ink">{event.title}</h3>
           <p className="mt-3 flex items-center gap-2 text-sm font-bold text-teal">
             <MapPin size={16} /> {event.location}
           </p>

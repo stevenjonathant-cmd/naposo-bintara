@@ -18,15 +18,15 @@ export default async function AdminPage({ searchParams }: { searchParams?: { sav
   ]);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <main className="section-shell">
       <SaveToast saved={searchParams?.saved} />
-      <div className="max-w-3xl">
+      <div className="church-card bg-ink p-7 text-white">
         <p className="text-sm font-black uppercase tracking-wide text-ember">Dashboard</p>
-        <h1 className="mt-2 text-4xl font-black text-ink">Kelola Konten</h1>
-        <p className="mt-3 text-graphite/70">
+        <h1 className="mt-2 text-5xl font-black uppercase leading-none sm:text-6xl">Kelola Konten</h1>
+        <p className="mt-3 max-w-3xl text-white/70">
           Edit agenda mingguan, roster pelayanan, laporan keuangan, dan approval anggota. Chord punya halaman admin sendiri supaya lebih rapi.
         </p>
-        <Link href="/admin/chords" className="focus-ring mt-5 inline-flex rounded bg-ink px-4 py-2 text-sm font-black text-white">
+        <Link href="/admin/chords" className="church-button-light mt-5">
           Kelola Buku Ende Chords
         </Link>
       </div>

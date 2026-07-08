@@ -36,19 +36,19 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-const inputClass = "focus-ring rounded border border-ink/15 bg-white px-3 py-2 text-ink";
+const inputClass = "focus-ring rounded-2xl border border-ink/15 bg-white px-3 py-2 text-ink";
 
 export function AdminForm({ agenda, services, reports, profiles }: AdminFormProps) {
   return (
     <div className="grid gap-6">
-      <section className="glass-panel rounded p-5">
+      <section className="church-card p-5">
         <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded bg-ink text-white">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-white">
             <CalendarPlus size={19} />
           </span>
           <h2 className="text-2xl font-black text-ink">Agenda mingguan</h2>
         </div>
-        <form action={createWeeklyAgenda} className="mt-5 rounded border border-teal/20 bg-teal/5 p-4">
+        <form action={createWeeklyAgenda} className="mt-5 rounded-[24px] border border-teal/20 bg-teal/5 p-4">
           <h3 className="text-lg font-black text-ink">Tambah agenda baru</h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             <Field label="Hari">
@@ -82,7 +82,7 @@ export function AdminForm({ agenda, services, reports, profiles }: AdminFormProp
 
         <div className="mt-5 grid gap-4 lg:grid-cols-2">
           {agenda.map((item) => (
-            <div key={item.id} className="rounded border border-ink/10 bg-white/75 p-4">
+            <div key={item.id} className="rounded-[24px] border border-ink/10 bg-neutral-50 p-4">
               <form action={updateWeeklyAgenda}>
                 <input type="hidden" name="id" value={item.id} />
                 <div className="grid gap-3">
@@ -125,9 +125,9 @@ export function AdminForm({ agenda, services, reports, profiles }: AdminFormProp
         </div>
       </section>
 
-      <section className="glass-panel rounded p-5">
+      <section className="church-card p-5">
         <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded bg-teal text-white">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-teal text-white">
             <CalendarPlus size={19} />
           </span>
           <h2 className="text-2xl font-black text-ink">Roster pelayanan minggu ini</h2>
@@ -136,7 +136,7 @@ export function AdminForm({ agenda, services, reports, profiles }: AdminFormProp
           {services.slice(0, 2).map((service) => {
             const roles = service.service_type === "saturday" ? saturdayRoles : youthRoles;
             return (
-              <form key={service.id} action={updateServiceRoster} className="rounded border border-ink/10 bg-white/75 p-4">
+              <form key={service.id} action={updateServiceRoster} className="rounded-[24px] border border-ink/10 bg-neutral-50 p-4">
                 <input type="hidden" name="service_id" value={service.id} />
                 <input type="hidden" name="service_type" value={service.service_type} />
                 <div className="grid gap-3">
@@ -165,9 +165,9 @@ export function AdminForm({ agenda, services, reports, profiles }: AdminFormProp
       </section>
 
       <section>
-        <form action={createFinanceReport} className="glass-panel rounded p-5">
+        <form action={createFinanceReport} className="church-card p-5">
           <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded bg-mango text-ink">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-mango text-ink">
               <FileUp size={19} />
             </span>
             <h2 className="text-2xl font-black text-ink">Tambah laporan keuangan</h2>
@@ -198,16 +198,16 @@ export function AdminForm({ agenda, services, reports, profiles }: AdminFormProp
         </form>
       </section>
 
-      <section className="glass-panel rounded p-5">
+      <section className="church-card p-5">
         <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded bg-skydeep text-white">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-skydeep text-white">
             <UserCheck size={19} />
           </span>
           <h2 className="text-2xl font-black text-ink">Approval anggota dan role</h2>
         </div>
         <div className="mt-5 grid gap-3">
           {profiles.map((profile) => (
-            <form key={profile.id} action={updateProfileRoles} className="grid gap-3 rounded border border-ink/10 bg-white/75 p-4 lg:grid-cols-[1fr_auto] lg:items-end">
+            <form key={profile.id} action={updateProfileRoles} className="grid gap-3 rounded-[24px] border border-ink/10 bg-neutral-50 p-4 lg:grid-cols-[1fr_auto] lg:items-end">
               <input type="hidden" name="id" value={profile.id} />
               <div className="grid gap-3 md:grid-cols-[1.5fr_repeat(3,auto)] md:items-end">
                 <Field label="Nama tampilan">

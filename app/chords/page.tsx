@@ -15,17 +15,17 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
   });
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="glass-panel overflow-hidden rounded">
-        <div className="grid gap-6 p-6 lg:grid-cols-[1fr_0.8fr] lg:p-8">
+    <main className="section-shell">
+      <div className="church-card overflow-hidden">
+        <div className="grid gap-6 p-6 lg:grid-cols-[1fr_0.55fr] lg:p-8">
           <div>
             <p className="eyebrow text-teal">Chord Library</p>
-            <h1 className="mt-2 text-4xl font-black leading-tight text-ink sm:text-5xl">Buku Ende & Chord Pelayanan</h1>
-            <p className="mt-4 max-w-2xl text-lg font-semibold leading-8 text-graphite/70">
+            <h1 className="mt-3 text-5xl font-black uppercase leading-none text-ink sm:text-7xl">Buku Ende Chords</h1>
+            <p className="mt-4 max-w-2xl text-lg font-bold leading-8 text-graphite/70">
               Cari lagu berdasarkan nomor Buku Ende, judul, atau nada dasar. Simpan gambar chord dan versi teks untuk transpose.
             </p>
           </div>
-          <div className="rounded bg-ink p-5 text-white">
+          <div className="poster-panel rounded-[28px] bg-ink p-6 text-white">
             <Music2 size={28} />
             <p className="mt-8 text-4xl font-black">{allSongs.length}</p>
             <p className="mt-1 text-sm font-bold text-white/60">lagu tersedia dalam library</p>
@@ -33,10 +33,10 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
         </div>
       </div>
 
-      <section className="mt-6 rounded border border-ink/10 bg-white/80 p-4 backdrop-blur">
+      <section className="mt-6 rounded-[28px] border border-black/10 bg-white p-4 shadow-soft">
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <p className="text-sm font-black text-ink">Search before opening</p>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-ink">Search before opening</p>
             <p className="mt-1 text-sm font-semibold text-graphite/60">Contoh: ketik `356`, `Sai Tong`, atau `G`.</p>
           </div>
           <form className="relative w-full md:max-w-sm">
@@ -45,13 +45,13 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
               name="q"
               defaultValue={searchParams?.q}
               placeholder="Cari judul, nomor, tag..."
-              className="focus-ring w-full rounded border border-ink/15 bg-white py-3 pl-10 pr-3 font-semibold text-ink"
+              className="focus-ring w-full rounded-full border border-ink/15 bg-white py-3 pl-10 pr-3 font-semibold text-ink"
             />
           </form>
         </div>
       </section>
 
-      <div className="mt-8 rounded border border-ink/10 bg-white/80 backdrop-blur">
+      <div className="mt-8 overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-soft">
         <div className="grid grid-cols-[88px_1fr_auto] gap-3 border-b border-ink/10 px-4 py-3 text-xs font-black uppercase tracking-wide text-graphite/50">
           <span>No</span>
           <span>Judul Lagu</span>
@@ -61,7 +61,7 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
           <Link
             key={song.id}
             href={`/chords/${song.id}`}
-            className="focus-ring grid grid-cols-[88px_1fr_auto] items-center gap-3 border-b border-ink/10 px-4 py-4 transition hover:bg-teal/5 last:border-b-0"
+            className="focus-ring grid grid-cols-[88px_1fr_auto] items-center gap-3 border-b border-ink/10 px-4 py-4 transition hover:bg-neutral-50 last:border-b-0"
           >
             <span className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3 py-2 text-sm font-black text-white">
               <Hash size={14} /> {song.song_number || "-"}
@@ -74,7 +74,7 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
                 {song.tags.slice(0, 3).map((tag) => <span key={tag}>#{tag}</span>)}
               </span>
             </span>
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-ink shadow-sm">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-white shadow-sm">
               <ArrowRight size={18} />
             </span>
           </Link>

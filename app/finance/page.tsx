@@ -5,15 +5,15 @@ export default async function FinancePage() {
   const reports = await getFinanceReports();
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      <section className="glass-panel rounded p-6">
+    <main className="section-shell max-w-5xl">
+      <section className="church-card p-6">
         <div className="flex items-center gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-full bg-ink text-white">
             <WalletCards size={22} />
           </span>
           <div>
             <p className="eyebrow text-teal">Finance</p>
-            <h1 className="text-4xl font-black text-ink">Laporan Keuangan</h1>
+            <h1 className="text-5xl font-black uppercase leading-none text-ink">Laporan Keuangan</h1>
           </div>
         </div>
         <p className="mt-4 text-base font-semibold leading-7 text-graphite/70">File laporan bulanan untuk anggota dengan akses finance.</p>
@@ -21,7 +21,7 @@ export default async function FinancePage() {
 
       <div className="mt-8 grid gap-4">
         {reports.map((report) => (
-          <article key={report.id} className="glass-panel flex flex-col gap-4 rounded p-5 sm:flex-row sm:items-center sm:justify-between">
+          <article key={report.id} className="church-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex gap-4">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded bg-mango/30 text-ink">
                 <FileText size={22} />
@@ -33,7 +33,7 @@ export default async function FinancePage() {
                 </p>
               </div>
             </div>
-            <a href={report.file_url} className="focus-ring rounded bg-ink px-4 py-2 text-center text-sm font-black text-white">
+            <a href={report.file_url} className="church-button-dark text-center">
               Buka file
             </a>
           </article>

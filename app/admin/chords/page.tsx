@@ -13,15 +13,15 @@ export default async function AdminChordsPage({ searchParams }: { searchParams?:
   const songs = await getSongs();
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <main className="section-shell">
       <SaveToast saved={searchParams?.saved} />
-      <div className="max-w-3xl">
+      <div className="church-card bg-ink p-7 text-white">
         <p className="text-sm font-black uppercase tracking-wide text-ember">Chord Admin</p>
-        <h1 className="mt-2 text-4xl font-black text-ink">Kelola Buku Ende Chords</h1>
-        <p className="mt-3 text-graphite/70">
+        <h1 className="mt-2 text-5xl font-black uppercase leading-none sm:text-6xl">Kelola Buku Ende Chords</h1>
+        <p className="mt-3 max-w-3xl text-white/70">
           Upload gambar chord, isi No, Judul, nada dasar original, dan chord text jika ingin fitur transpose aktif.
         </p>
-        <Link href="/admin" className="focus-ring mt-5 inline-flex rounded border border-ink/15 bg-white px-4 py-2 text-sm font-black text-ink">
+        <Link href="/admin" className="church-button-light mt-5">
           Kembali ke Admin Utama
         </Link>
       </div>

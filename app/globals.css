@@ -12,13 +12,7 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at 18% 8%, rgba(15, 118, 110, 0.14), transparent 26rem),
-    radial-gradient(circle at 82% 4%, rgba(216, 76, 61, 0.12), transparent 24rem),
-    linear-gradient(90deg, rgba(17, 24, 39, 0.03) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(17, 24, 39, 0.03) 1px, transparent 1px),
-    linear-gradient(135deg, #fbfaf7 0%, #f6f1e8 42%, #edf6f4 100%);
-  background-size: auto, auto, 42px 42px, 42px 42px, auto;
+  background: #f7f7f4;
   color: #111827;
   overflow-x: hidden;
 }
@@ -36,11 +30,78 @@ textarea {
 }
 
 .glass-panel {
-  @apply border border-white/70 bg-white/80 shadow-soft backdrop-blur-xl;
+  @apply border border-black/10 bg-white shadow-soft;
 }
 
 .eyebrow {
-  @apply text-xs font-black uppercase tracking-[0.24em];
+  @apply text-xs font-black uppercase tracking-[0.28em];
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16;
+}
+
+.church-card {
+  @apply overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-soft;
+}
+
+.church-button {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-black transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal;
+}
+
+.church-button-dark {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal;
+}
+
+.church-button-light {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-black text-ink transition hover:bg-ink hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal;
+}
+
+.photo-panel {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.74)),
+    radial-gradient(circle at 72% 28%, rgba(255, 255, 255, 0.42), transparent 7rem),
+    radial-gradient(circle at 42% 44%, rgba(15, 118, 110, 0.75), transparent 18rem),
+    radial-gradient(circle at 16% 22%, rgba(216, 76, 61, 0.72), transparent 16rem),
+    linear-gradient(135deg, #0b1020, #151b2d 46%, #0f766e);
+}
+
+.photo-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.24;
+  background:
+    linear-gradient(90deg, transparent 0 10%, rgba(255,255,255,0.25) 10% 10.35%, transparent 10.35% 20%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.14) 0 1px, transparent 1px 10px);
+  mix-blend-mode: screen;
+}
+
+.photo-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.poster-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-panel::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -35% auto;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 999px;
+  border: 3rem solid rgba(255, 255, 255, 0.16);
+}
+
+.display-title {
+  @apply text-5xl font-black uppercase leading-[0.9] tracking-normal text-ink sm:text-6xl lg:text-8xl;
 }
 
 .chord-viewer-stage {

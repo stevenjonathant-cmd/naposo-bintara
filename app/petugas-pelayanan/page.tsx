@@ -7,17 +7,17 @@ export default async function PetugasPelayananPage() {
   const services = await getUpcomingServices(6);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <section className="glass-panel overflow-hidden rounded">
-        <div className="grid gap-6 p-6 md:grid-cols-[1fr_auto] md:items-end lg:p-8">
+    <main className="section-shell">
+      <section className="church-card overflow-hidden">
+        <div className="photo-panel min-h-80 p-7 md:p-9">
           <div className="max-w-3xl">
-            <p className="eyebrow text-teal">Roster pelayanan</p>
-            <h1 className="mt-3 text-4xl font-black leading-tight text-ink sm:text-5xl">Petugas Pelayanan</h1>
-            <p className="mt-4 text-lg font-semibold leading-8 text-graphite/70">
+            <p className="eyebrow text-mango">Roster pelayanan</p>
+            <h1 className="mt-3 text-5xl font-black uppercase leading-none text-white sm:text-7xl">Petugas Pelayanan</h1>
+            <p className="mt-4 max-w-2xl text-lg font-bold leading-8 text-white/75">
               Jadwal pelayan PHD Sabtu dan Ibadah Minggu Sore, termasuk pembicara, tim musik, multimedia, dan nyanyian rohani.
             </p>
           </div>
-          <Link href="/chords" className="focus-ring inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white">
+          <Link href="/chords" className="church-button-light mt-8 w-fit">
             Buka Chord <Music2 size={17} />
           </Link>
         </div>
@@ -30,7 +30,7 @@ export default async function PetugasPelayananPage() {
           </span>
           <div>
             <p className="eyebrow text-ember">Upcoming</p>
-            <h2 className="text-3xl font-black text-ink">Pelayanan Terdekat</h2>
+            <h2 className="text-4xl font-black uppercase leading-none text-ink">Pelayanan Terdekat</h2>
           </div>
         </div>
         <div className="grid gap-4 lg:grid-cols-2">
@@ -41,12 +41,12 @@ export default async function PetugasPelayananPage() {
       </section>
 
       <section className="mt-10">
-        <div className="glass-panel flex flex-col justify-between gap-4 rounded p-6 md:flex-row md:items-center">
+        <div className="church-card flex flex-col justify-between gap-4 bg-ink p-7 text-white md:flex-row md:items-center">
           <div>
             <p className="eyebrow text-teal">Google Sheet</p>
-            <h2 className="mt-2 text-2xl font-black text-ink">Roster ini bisa mengikuti spreadsheet bulanan.</h2>
+            <h2 className="mt-2 text-3xl font-black uppercase leading-none">Roster ini bisa mengikuti spreadsheet bulanan.</h2>
           </div>
-          <Link href="/admin" className="focus-ring inline-flex w-fit items-center gap-2 rounded-full border border-ink/10 bg-white px-5 py-3 text-sm font-black text-ink">
+          <Link href="/admin" className="church-button-light w-fit">
             Admin <ArrowRight size={17} />
           </Link>
         </div>
