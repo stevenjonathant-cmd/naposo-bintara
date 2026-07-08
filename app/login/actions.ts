@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 export async function signInWithEmail(formData: FormData) {
@@ -14,10 +15,12 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   const supabase = createClient();
+  const origin = headers().get("origin") ?? process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
   await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback`
+      emailRedirectTo: `${origin}/auth/callback`
     }
   });
 
