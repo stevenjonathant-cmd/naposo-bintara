@@ -3,9 +3,10 @@ import { Church, Globe2, LogIn, Menu } from "lucide-react";
 
 const nav = [
   { href: "/", label: "Beranda" },
-  { href: "/events", label: "Acara" },
-  { href: "/members", label: "Member Area" },
-  { href: "/chords", label: "Chord" },
+  { href: "/events", label: "Events" },
+  { href: "/petugas-pelayanan", label: "Petugas Pelayanan" },
+  { href: "/finance", label: "Finance" },
+  { href: "/about", label: "About Us" },
   { href: "/admin", label: "Admin" }
 ];
 
@@ -28,7 +29,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="focus-ring rounded px-3 py-2 text-sm font-bold text-graphite/70 transition hover:bg-white hover:text-ink"
+              className="focus-ring rounded-full px-3 py-2 text-sm font-bold text-graphite/70 transition hover:bg-white hover:text-ink"
             >
               {item.label}
             </Link>
@@ -38,20 +39,20 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/?lang=en"
-            className="focus-ring hidden h-10 w-10 place-items-center rounded border border-ink/10 bg-white/100 text-ink/75 transition hover:text-teal sm:grid"
+            className="focus-ring hidden h-10 w-10 place-items-center rounded-full border border-ink/10 bg-white text-ink/75 transition hover:text-teal sm:grid"
             aria-label="Switch language"
           >
             <Globe2 size={18} />
           </Link>
           <Link
             href="/login"
-            className="focus-ring grid h-10 w-10 place-items-center rounded bg-ink text-white shadow-glow"
+            className="focus-ring grid h-10 w-10 place-items-center rounded-full bg-ink text-white shadow-glow"
             aria-label="Sign in"
           >
             <LogIn size={18} />
           </Link>
           <button
-            className="focus-ring grid h-10 w-10 place-items-center rounded border border-ink/10 bg-white/100 text-ink md:hidden"
+            className="focus-ring grid h-10 w-10 place-items-center rounded-full border border-ink/10 bg-white text-ink md:hidden"
             aria-label="Open menu"
           >
             <Menu size={20} />

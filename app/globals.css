@@ -12,10 +12,12 @@ html {
 
 body {
   background:
-    linear-gradient(90deg, rgba(17, 24, 39, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(17, 24, 39, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 18% 8%, rgba(15, 118, 110, 0.14), transparent 26rem),
+    radial-gradient(circle at 82% 4%, rgba(216, 76, 61, 0.12), transparent 24rem),
+    linear-gradient(90deg, rgba(17, 24, 39, 0.03) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(17, 24, 39, 0.03) 1px, transparent 1px),
     linear-gradient(135deg, #fbfaf7 0%, #f6f1e8 42%, #edf6f4 100%);
-  background-size: 42px 42px, 42px 42px, auto;
+  background-size: auto, auto, 42px 42px, 42px 42px, auto;
   color: #111827;
 }
 
@@ -32,5 +34,9 @@ textarea {
 }
 
 .glass-panel {
-  @apply border border-white/70 bg-white/75 shadow-soft backdrop-blur-xl;
+  @apply border border-white/70 bg-white/80 shadow-soft backdrop-blur-xl;
+}
+
+.eyebrow {
+  @apply text-xs font-black uppercase tracking-[0.24em];
 }

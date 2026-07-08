@@ -1,4 +1,4 @@
-import { FileText } from "lucide-react";
+import { FileText, WalletCards } from "lucide-react";
 import { getFinanceReports } from "@/lib/data";
 
 export default async function FinancePage() {
@@ -6,9 +6,18 @@ export default async function FinancePage() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      <p className="text-sm font-black uppercase tracking-wide text-teal">Finance</p>
-      <h1 className="mt-2 text-4xl font-black text-ink">Laporan Keuangan</h1>
-      <p className="mt-3 text-ink/70">File laporan bulanan untuk anggota dengan akses finance.</p>
+      <section className="glass-panel rounded p-6">
+        <div className="flex items-center gap-3">
+          <span className="grid h-12 w-12 place-items-center rounded-full bg-ink text-white">
+            <WalletCards size={22} />
+          </span>
+          <div>
+            <p className="eyebrow text-teal">Finance</p>
+            <h1 className="text-4xl font-black text-ink">Laporan Keuangan</h1>
+          </div>
+        </div>
+        <p className="mt-4 text-base font-semibold leading-7 text-graphite/70">File laporan bulanan untuk anggota dengan akses finance.</p>
+      </section>
 
       <div className="mt-8 grid gap-4">
         {reports.map((report) => (
