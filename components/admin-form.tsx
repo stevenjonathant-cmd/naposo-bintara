@@ -1,19 +1,17 @@
-import { CalendarPlus, FileUp, Music, Save, Trash2, UserCheck } from "lucide-react";
+import { CalendarPlus, FileUp, Save, Trash2, UserCheck } from "lucide-react";
 import {
   createFinanceReport,
-  createSong,
   createWeeklyAgenda,
   deleteWeeklyAgenda,
   updateProfileRoles,
   updateServiceRoster,
   updateWeeklyAgenda
 } from "@/app/admin/actions";
-import type { FinanceReport, Profile, Service, Song, WeeklyAgendaItem } from "@/lib/types";
+import type { FinanceReport, Profile, Service, WeeklyAgendaItem } from "@/lib/types";
 
 type AdminFormProps = {
   agenda: WeeklyAgendaItem[];
   services: Service[];
-  songs: Song[];
   reports: FinanceReport[];
   profiles: Profile[];
 };
@@ -40,7 +38,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 const inputClass = "focus-ring rounded border border-ink/15 bg-white px-3 py-2 text-ink";
 
-export function AdminForm({ agenda, services, songs, reports, profiles }: AdminFormProps) {
+export function AdminForm({ agenda, services, reports, profiles }: AdminFormProps) {
   return (
     <div className="grid gap-6">
       <section className="glass-panel rounded p-5">
@@ -166,46 +164,7 @@ export function AdminForm({ agenda, services, songs, reports, profiles }: AdminF
         </div>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <form action={createSong} className="glass-panel rounded p-5">
-          <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded bg-ember text-white">
-              <Music size={19} />
-            </span>
-            <h2 className="text-2xl font-black text-ink">Tambah chord</h2>
-          </div>
-          <div className="mt-5 grid gap-3">
-            <Field label="No">
-              <input className={inputClass} name="song_number" placeholder="356" />
-            </Field>
-            <Field label="Judul">
-              <input className={inputClass} name="title" placeholder="Sai Tong Ingotonku" />
-            </Field>
-            <Field label="Kategori">
-              <input className={inputClass} name="category" placeholder="Buku Ende / Praise" />
-            </Field>
-            <Field label="Nada dasar original">
-              <input className={inputClass} name="original_key" placeholder="G / C / D / F#" />
-            </Field>
-            <Field label="Tags (pisahkan dengan koma)">
-              <input className={inputClass} name="tags" placeholder="ende, ibadah, youth" />
-            </Field>
-            <Field label="Chord + lyrics text (opsional, bisa ditranspose)">
-              <textarea className={inputClass} name="chord_text" rows={7} placeholder={"G        D/F#       Em\nSai tong ingotonku...\nC        G/B        Am    D"} />
-            </Field>
-            <Field label="Upload gambar chord">
-              <input className={inputClass} name="image_files" type="file" accept="image/jpeg,image/png,image/webp" multiple />
-            </Field>
-            <Field label="URL gambar chord cadangan (opsional)">
-              <textarea className={inputClass} name="image_urls" rows={3} placeholder="https://... kalau file sudah ada di tempat lain" />
-            </Field>
-          </div>
-          <button className="focus-ring mt-4 inline-flex items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-black text-white">
-            <Save size={16} /> Simpan chord
-          </button>
-          <p className="mt-4 text-sm font-semibold text-graphite/60">{songs.length} chord tersimpan.</p>
-        </form>
-
+      <section>
         <form action={createFinanceReport} className="glass-panel rounded p-5">
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 place-items-center rounded bg-mango text-ink">

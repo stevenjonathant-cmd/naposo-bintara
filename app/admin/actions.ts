@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 function text(formData: FormData, key: string) {
@@ -45,6 +46,7 @@ function refresh() {
   revalidatePath("/members");
   revalidatePath("/chords");
   revalidatePath("/finance");
+  revalidatePath("/admin/chords");
 }
 
 export async function updateWeeklyAgenda(formData: FormData) {
@@ -64,6 +66,7 @@ export async function updateWeeklyAgenda(formData: FormData) {
     .eq("id", id);
 
   refresh();
+  redirect("/admin?saved=agenda");
 }
 
 export async function createWeeklyAgenda(formData: FormData) {
@@ -87,6 +90,7 @@ export async function createWeeklyAgenda(formData: FormData) {
   });
 
   refresh();
+  redirect("/admin?saved=agenda-created");
 }
 
 export async function deleteWeeklyAgenda(formData: FormData) {
@@ -96,6 +100,7 @@ export async function deleteWeeklyAgenda(formData: FormData) {
   await supabase.from("weekly_agenda").delete().eq("id", id);
 
   refresh();
+  redirect("/admin?saved=agenda-deleted");
 }
 
 export async function updateServiceRoster(formData: FormData) {
@@ -134,6 +139,7 @@ export async function updateServiceRoster(formData: FormData) {
   }
 
   refresh();
+  redirect("/admin?saved=roster");
 }
 
 export async function createSong(formData: FormData) {
@@ -185,6 +191,7 @@ export async function createSong(formData: FormData) {
   }
 
   refresh();
+  redirect("/admin/chords?saved=chord");
 }
 
 export async function createFinanceReport(formData: FormData) {
@@ -203,6 +210,7 @@ export async function createFinanceReport(formData: FormData) {
   });
 
   refresh();
+  redirect("/admin?saved=finance");
 }
 
 export async function updateProfileRoles(formData: FormData) {
@@ -220,4 +228,5 @@ export async function updateProfileRoles(formData: FormData) {
     .eq("id", id);
 
   refresh();
+  redirect("/admin?saved=user");
 }

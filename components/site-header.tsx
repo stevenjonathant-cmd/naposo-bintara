@@ -5,6 +5,7 @@ const nav = [
   { href: "/", label: "Beranda" },
   { href: "/events", label: "Events" },
   { href: "/petugas-pelayanan", label: "Petugas Pelayanan" },
+  { href: "/chords", label: "Buku Ende Chords" },
   { href: "/finance", label: "Finance" },
   { href: "/about", label: "About Us" },
   { href: "/admin", label: "Admin" }
