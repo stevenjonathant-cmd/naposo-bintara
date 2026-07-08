@@ -1,11 +1,15 @@
-import { Disc3, Hash, Music2, Search } from "lucide-react";
-import { ChordImageViewer } from "@/components/chord-image-viewer";
-import { ChordTransposer } from "@/components/chord-transposer";
+import Link from "next/link";
+import { ArrowRight, Disc3, Hash, Image as ImageIcon, Music2, Search } from "lucide-react";
 import { getSongs } from "@/lib/data";
+
+function songHeading(song: { category: string; song_number?: string; title: string }) {
+  return `[${song.category || "Chord"}] - ${song.song_number || "-"} : ${song.title}`;
+}
 
 export default async function ChordsPage({ searchParams }: { searchParams?: { q?: string } }) {
   const query = (searchParams?.q ?? "").toLowerCase();
-  const songs = (await getSongs()).filter((song) => {
+  const allSongs = await getSongs();
+  const songs = allSongs.filter((song) => {
     const haystack = [song.title, song.category, song.song_number, song.original_key, ...song.tags].join(" ").toLowerCase();
     return haystack.includes(query);
   });
@@ -23,7 +27,7 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
           </div>
           <div className="rounded bg-ink p-5 text-white">
             <Music2 size={28} />
-            <p className="mt-8 text-4xl font-black">{songs.length}</p>
+            <p className="mt-8 text-4xl font-black">{allSongs.length}</p>
             <p className="mt-1 text-sm font-bold text-white/60">lagu tersedia dalam library</p>
           </div>
         </div>
@@ -47,49 +51,33 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
         </div>
       </section>
 
-      <div className="mt-8 grid gap-5">
+      <div className="mt-8 rounded border border-ink/10 bg-white/80 backdrop-blur">
+        <div className="grid grid-cols-[88px_1fr_auto] gap-3 border-b border-ink/10 px-4 py-3 text-xs font-black uppercase tracking-wide text-graphite/50">
+          <span>No</span>
+          <span>Judul Lagu</span>
+          <span className="hidden sm:inline">Open</span>
+        </div>
         {songs.map((song) => (
-          <article key={song.id} className="glass-panel grid gap-5 rounded p-4 xl:grid-cols-[minmax(420px,0.95fr)_1fr]">
-            <div>
-              <ChordImageViewer images={song.image_urls} title={song.title} />
-            </div>
-            <div>
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className="eyebrow text-ember">{song.category || "Chord"}</p>
-                  <h2 className="mt-2 text-3xl font-black text-ink">{song.title}</h2>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-ink px-3 py-2 text-sm font-black text-white">
-                    <Hash size={15} /> No: {song.song_number || "-"}
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white px-3 py-2 text-sm font-black text-ink">
-                    <Disc3 size={15} /> Nada: {song.original_key || "-"}
-                  </span>
-                </div>
-              </div>
-              <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-3">
-                <div className="rounded border border-ink/10 bg-white/70 p-3">
-                  <dt className="font-black text-graphite/50">No</dt>
-                  <dd className="mt-1 font-black text-ink">{song.song_number || "-"}</dd>
-                </div>
-                <div className="rounded border border-ink/10 bg-white/70 p-3">
-                  <dt className="font-black text-graphite/50">Judul</dt>
-                  <dd className="mt-1 font-black text-ink">{song.title}</dd>
-                </div>
-                <div className="rounded border border-ink/10 bg-white/70 p-3">
-                  <dt className="font-black text-graphite/50">Nada dasar original</dt>
-                  <dd className="mt-1 font-black text-ink">{song.original_key || "-"}</dd>
-                </div>
-              </dl>
-              {song.chord_text ? (
-                <div className="mt-5">
-                  <ChordTransposer chordText={song.chord_text} originalKey={song.original_key} />
-                </div>
-              ) : null}
-              <p className="mt-4 text-sm font-semibold text-graphite/60">{song.tags.map((tag) => `#${tag}`).join(" ")}</p>
-            </div>
-          </article>
+          <Link
+            key={song.id}
+            href={`/chords/${song.id}`}
+            className="focus-ring grid grid-cols-[88px_1fr_auto] items-center gap-3 border-b border-ink/10 px-4 py-4 transition hover:bg-teal/5 last:border-b-0"
+          >
+            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3 py-2 text-sm font-black text-white">
+              <Hash size={14} /> {song.song_number || "-"}
+            </span>
+            <span>
+              <span className="block text-base font-black text-ink sm:text-lg">{songHeading(song)}</span>
+              <span className="mt-1 flex flex-wrap items-center gap-2 text-xs font-bold text-graphite/55">
+                <span className="inline-flex items-center gap-1"><Disc3 size={13} /> Nada: {song.original_key || "-"}</span>
+                <span className="inline-flex items-center gap-1"><ImageIcon size={13} /> {song.image_urls.length} gambar</span>
+                {song.tags.slice(0, 3).map((tag) => <span key={tag}>#{tag}</span>)}
+              </span>
+            </span>
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-ink shadow-sm">
+              <ArrowRight size={18} />
+            </span>
+          </Link>
         ))}
       </div>
     </main>

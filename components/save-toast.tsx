@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2 } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 const messages: Record<string, string> = {
@@ -17,18 +17,17 @@ const messages: Record<string, string> = {
 };
 
 export function SaveToast({ saved }: { saved?: string }) {
-  const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
     if (!saved) return;
 
     const timeout = window.setTimeout(() => {
-      router.replace(pathname, { scroll: false });
-    }, 1100);
+      window.location.replace(pathname);
+    }, 850);
 
     return () => window.clearTimeout(timeout);
-  }, [pathname, router, saved]);
+  }, [pathname, saved]);
 
   if (!saved) return null;
 
