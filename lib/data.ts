@@ -98,3 +98,21 @@ export async function getCurrentProfile(): Promise<Profile | null> {
   const { data } = await supabase.from("profiles").select("*").eq("id", user.id).single();
   return data as Profile | null;
 }
+
+export async function getProfiles(): Promise<Profile[]> {
+  if (!isSupabaseConfigured()) {
+    return [
+      {
+        id: "demo",
+        display_name: "Demo Admin",
+        is_approved: true,
+        is_admin: true,
+        is_finance: true
+      }
+    ];
+  }
+
+  const supabase = createClient();
+  const { data } = await supabase.from("profiles").select("*").order("created_at", { ascending: false });
+  return (data ?? []) as Profile[];
+}

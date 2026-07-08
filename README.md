@@ -41,6 +41,7 @@ Without Supabase env vars, the app uses demo data and opens protected areas with
 3. Create storage buckets for chord images and finance report files.
 4. Add the project URL and anon key to `.env.local`.
 5. Set `NEXT_PUBLIC_SITE_URL` to your local or deployed URL for magic link redirects.
+6. Sign up once on the live site, then run `supabase/make-first-admin.sql` with your email to approve your first admin account.
 
 ## Deployment
 
