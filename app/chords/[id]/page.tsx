@@ -36,7 +36,7 @@ export default async function ChordDetailPage({ params }: { params: { id: string
 
       <section className="mt-6 grid gap-6">
         <div className="glass-panel rounded p-4">
-          <ChordImageViewer images={song.image_urls} title={songHeading(song)} />
+          <ChordImageViewer images={song.image_urls} title={songHeading(song)} songId={song.id} />
         </div>
 
         <div className="grid gap-5">
