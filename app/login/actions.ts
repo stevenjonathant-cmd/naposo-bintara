@@ -17,12 +17,17 @@ export async function signInWithEmail(formData: FormData) {
   const supabase = createClient();
   const origin = headers().get("origin") ?? process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-  await supabase.auth.signInWithOtp({
+  const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       emailRedirectTo: `${origin}/auth/callback`
     }
   });
+
+  if (error) {
+    const message = encodeURIComponent(error.message);
+    redirect(`/login?status=auth-error&message=${message}`);
+  }
 
   redirect("/login?status=sent");
 }

@@ -1,7 +1,7 @@
 import { Mail } from "lucide-react";
 import { signInWithEmail } from "@/app/login/actions";
 
-export default function LoginPage({ searchParams }: { searchParams?: { status?: string } }) {
+export default function LoginPage({ searchParams }: { searchParams?: { status?: string; message?: string } }) {
   return (
     <main className="mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl items-center px-4 py-10 sm:px-6 lg:px-8">
       <section className="mx-auto w-full max-w-md rounded border border-ink/10 bg-white p-6 shadow-sm">
@@ -22,6 +22,11 @@ export default function LoginPage({ searchParams }: { searchParams?: { status?: 
         ) : null}
         {searchParams?.status === "email" ? (
           <p className="mt-4 rounded bg-mango/25 p-3 text-sm font-bold text-ink">Masukkan email terlebih dahulu.</p>
+        ) : null}
+        {searchParams?.status === "auth-error" ? (
+          <p className="mt-4 rounded bg-ember/10 p-3 text-sm font-bold text-ember">
+            Supabase menolak pengiriman email: {searchParams.message ?? "coba lagi beberapa menit lagi."}
+          </p>
         ) : null}
         <form action={signInWithEmail} className="mt-6 grid gap-4">
           <label className="grid gap-1 text-sm font-bold text-ink/70">
