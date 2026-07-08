@@ -50,3 +50,30 @@ Deploy to Vercel and set these environment variables:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` or `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_SITE_URL`
+- Optional: `GOOGLE_ROSTER_CSV_URL`
+
+## Google Sheet Roster
+
+The site can use a published Google Sheet as the monthly roster source. Upload `outputs/naposo-bintara-monthly-roster-template.xlsx` into Google Sheets, then fill the first two tabs:
+
+- `Pelayanan PHD Sabtu`
+- `Pelayanan Minggu Sore`
+
+The third tab, `Website Ready`, is generated from the first two tabs and should be published as CSV for the website.
+
+Required columns:
+
+```txt
+service_date, service_type, title, theme, role, people, notes
+```
+
+Rules:
+
+- Admins only need to edit the first two tabs.
+- Each row is one service date, with role columns across the row.
+- Empty singer/musician/song slots are okay; the generated website feed leaves them blank and the site ignores them.
+- The `Website Ready` tab converts each row into the normalized website format.
+- `service_type` must be `saturday` or `youth`.
+- Publish the `Website Ready` tab as CSV and put that URL in Vercel as `GOOGLE_ROSTER_CSV_URL`.
+
+When this environment variable is set, the website reads rosters from the sheet and automatically shows the next upcoming services based on the current date.

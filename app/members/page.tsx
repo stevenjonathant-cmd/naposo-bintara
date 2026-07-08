@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, FileText, LockKeyhole, WalletCards } from "lucide-react";
 import { ServiceCard } from "@/components/service-card";
-import { getFinanceReports, getServices } from "@/lib/data";
+import { getFinanceReports, getUpcomingServices } from "@/lib/data";
 
 export default async function MembersPage() {
-  const [services, reports] = await Promise.all([getServices(), getFinanceReports()]);
+  const [services, reports] = await Promise.all([getUpcomingServices(2), getFinanceReports()]);
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

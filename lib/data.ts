@@ -1,8 +1,12 @@
 import { events as sampleEvents, financeReports, services as sampleServices, songs as sampleSongs, weeklyAgenda } from "@/lib/sample-data";
 import type { Event, FinanceReport, Profile, Service, Song, WeeklyAgendaItem } from "@/lib/types";
+import { getGoogleRosterServices } from "@/lib/google-roster";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 export async function getServices(): Promise<Service[]> {
+  const googleRoster = await getGoogleRosterServices();
+  if (googleRoster.length > 0) return googleRoster;
+
   if (!isSupabaseConfigured()) return sampleServices;
   const supabase = createClient();
   const { data } = await supabase
@@ -25,6 +29,15 @@ export async function getServices(): Promise<Service[]> {
       assignments: Array.from(grouped, ([role, people]) => ({ role, people }))
     };
   });
+}
+
+export async function getUpcomingServices(limit = 2): Promise<Service[]> {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  return (await getServices())
+    .filter((service) => new Date(service.service_date).getTime() >= startOfToday)
+    .sort((a, b) => new Date(a.service_date).getTime() - new Date(b.service_date).getTime())
+    .slice(0, limit);
 }
 
 export async function getEvents(): Promise<Event[]> {

@@ -1,8 +1,8 @@
 import { ServiceCard } from "@/components/service-card";
-import { getServices } from "@/lib/data";
+import { getUpcomingServices } from "@/lib/data";
 
 export default async function SchedulesPage() {
-  const services = await getServices();
+  const services = await getUpcomingServices(12);
   const saturday = services.filter((service) => service.service_type === "saturday");
   const youth = services.filter((service) => service.service_type === "youth");
 

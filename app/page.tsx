@@ -28,7 +28,7 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
               <Link href="#agenda" className="focus-ring inline-flex items-center gap-2 rounded bg-ink px-5 py-3 font-black text-white shadow-glow">
                 Agenda This Week <ArrowRight size={18} />
               </Link>
-              <Link href="/members" className="focus-ring inline-flex items-center gap-2 rounded border border-ink/10 bg-white/102 px-5 py-3 font-black text-ink backdrop-blur">
+              <Link href="/members" className="focus-ring inline-flex items-center gap-2 rounded border border-ink/10 bg-white px-5 py-3 font-black text-ink backdrop-blur">
                 Member Area <UsersRound size={18} />
               </Link>
             </div>
