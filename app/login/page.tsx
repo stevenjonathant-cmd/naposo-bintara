@@ -16,7 +16,9 @@ export default function LoginPage({ searchParams }: { searchParams?: { status?: 
           <p className="mt-4 rounded bg-teal/10 p-3 text-sm font-bold text-teal">Magic link sudah dikirim ke email.</p>
         ) : null}
         {searchParams?.status === "demo" ? (
-          <p className="mt-4 rounded bg-mango/25 p-3 text-sm font-bold text-ink">Isi Supabase env vars untuk mengaktifkan login.</p>
+          <p className="mt-4 rounded bg-mango/25 p-3 text-sm font-bold text-ink">
+            Supabase belum terbaca oleh deployment ini. Pastikan URL dan publishable key sudah ada di Vercel, lalu redeploy.
+          </p>
         ) : null}
         <form action={signInWithEmail} className="mt-6 grid gap-4">
           <label className="grid gap-1 text-sm font-bold text-ink/70">
