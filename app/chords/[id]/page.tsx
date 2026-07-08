@@ -16,12 +16,12 @@ export default async function ChordDetailPage({ params }: { params: { id: string
   if (!song) notFound();
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <main className="mx-auto w-full max-w-7xl overflow-hidden px-4 py-10 sm:px-6 lg:px-8">
       <Link href="/chords" className="focus-ring inline-flex items-center gap-2 rounded border border-ink/15 bg-white px-4 py-2 text-sm font-black text-ink">
         <ArrowLeft size={17} /> Back to list
       </Link>
 
-      <section className="mt-6 glass-panel rounded p-5 sm:p-6">
+      <section className="mt-6 min-w-0 max-w-full glass-panel rounded p-5 sm:p-6">
         <p className="eyebrow text-ember">Buku Ende Chords</p>
         <h1 className="mt-3 text-3xl font-black leading-tight text-ink sm:text-5xl">{songHeading(song)}</h1>
         <div className="mt-5 flex flex-wrap gap-2">
@@ -34,13 +34,13 @@ export default async function ChordDetailPage({ params }: { params: { id: string
         </div>
       </section>
 
-      <section className="mt-6 grid gap-6">
-        <div className="glass-panel rounded p-4">
+      <section className="mt-6 grid min-w-0 max-w-full gap-6">
+        <div className="min-w-0 max-w-full glass-panel rounded p-4">
           <ChordImageViewer images={song.image_urls} title={songHeading(song)} songId={song.id} />
         </div>
 
-        <div className="grid gap-5">
-          <div className="glass-panel rounded p-5">
+        <div className="grid min-w-0 max-w-full gap-5">
+          <div className="min-w-0 max-w-full glass-panel rounded p-5">
             <dl className="grid gap-3 text-sm sm:grid-cols-3">
               <div className="rounded border border-ink/10 bg-white/70 p-3">
                 <dt className="font-black text-graphite/50">Kategori</dt>

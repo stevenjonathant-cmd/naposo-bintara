@@ -48,7 +48,7 @@ export function ChordFullscreenViewer({
       </div>
 
       <div className="absolute bottom-3 left-3 right-3 z-20 grid gap-2">
-        <div className="flex justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           <button
             type="button"
             onClick={() => setMode("landscape")}
@@ -88,7 +88,9 @@ export function ChordFullscreenViewer({
       </div>
 
       <div className={`chord-viewer-stage ${mode === "landscape" ? "is-landscape" : "is-fit"}`}>
-        <img src={activeImage} alt={title} className="chord-viewer-image" />
+        <div className="chord-viewer-frame">
+          <img src={activeImage} alt={title} className="chord-viewer-image" />
+        </div>
       </div>
     </main>
   );

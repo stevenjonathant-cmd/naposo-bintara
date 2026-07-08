@@ -42,8 +42,10 @@ export function ChordTransposer({ chordText, originalKey }: { chordText: string;
   const keyIndex = originalKey ? sharpKeys.indexOf(normalizeRoot(originalKey)) : -1;
   const currentKey = keyIndex >= 0 ? sharpKeys[(keyIndex + steps + 120) % 12] : originalKey;
 
+  const visibleText = mode === "original" ? chordText : transposed;
+
   return (
-    <div className="rounded border border-ink/10 bg-white/80 p-4 sm:p-5">
+    <div className="min-w-0 max-w-full overflow-hidden rounded border border-ink/10 bg-white/80 p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.2em] text-teal">Chord + Lyrics</p>
@@ -84,9 +86,9 @@ export function ChordTransposer({ chordText, originalKey }: { chordText: string;
           </div>
         </div>
       ) : null}
-      <pre className="mt-4 min-h-[520px] overflow-x-auto whitespace-pre rounded bg-ink p-4 font-mono text-base leading-8 text-white sm:p-6 sm:text-lg sm:leading-9">
-        {mode === "original" ? chordText : transposed}
-      </pre>
+      <div className="mt-4 max-w-full overflow-x-auto rounded bg-ink">
+        <pre className="inline-block min-h-[520px] min-w-full whitespace-pre p-4 font-mono text-[13px] leading-7 text-white sm:p-6 sm:text-base sm:leading-8">{visibleText}</pre>
+      </div>
     </div>
   );
 }
