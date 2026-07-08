@@ -170,6 +170,22 @@ create policy "song_images_admin_all" on public.song_images for all using (publi
 create policy "finance_read_finance" on public.finance_reports for select using (public.is_approved() and public.is_finance());
 create policy "finance_write_finance" on public.finance_reports for all using (public.is_approved() and public.is_finance()) with check (public.is_approved() and public.is_finance());
 
+insert into storage.buckets (id, name, public)
+values ('chord-images', 'chord-images', true)
+on conflict (id) do update set public = true;
+
+create policy "chord_images_storage_public_read" on storage.objects
+  for select using (bucket_id = 'chord-images');
+
+create policy "chord_images_storage_admin_insert" on storage.objects
+  for insert with check (bucket_id = 'chord-images' and public.is_admin());
+
+create policy "chord_images_storage_admin_update" on storage.objects
+  for update using (bucket_id = 'chord-images' and public.is_admin()) with check (bucket_id = 'chord-images' and public.is_admin());
+
+create policy "chord_images_storage_admin_delete" on storage.objects
+  for delete using (bucket_id = 'chord-images' and public.is_admin());
+
 insert into public.services (service_type, service_date, title, theme)
 values
   ('saturday', '2026-07-11 19:00:00+07', 'Ibadah PHD', 'Youth Service - Saturday Night'),

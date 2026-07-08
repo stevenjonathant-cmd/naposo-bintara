@@ -73,7 +73,7 @@ export async function getWeeklyAgenda(): Promise<WeeklyAgendaItem[]> {
   const supabase = createClient();
   const { data } = await supabase
     .from("weekly_agenda")
-    .select("id, weekday, time, title, description, location, accent")
+    .select("id, weekday, time, title, description, location, accent, sort_order")
     .order("sort_order", { ascending: true });
   return (data ?? []) as WeeklyAgendaItem[];
 }

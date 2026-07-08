@@ -1,5 +1,13 @@
-import { CalendarPlus, FileUp, Music, Save, UserCheck } from "lucide-react";
-import { createFinanceReport, createSong, updateProfileRoles, updateServiceRoster, updateWeeklyAgenda } from "@/app/admin/actions";
+import { CalendarPlus, FileUp, Music, Save, Trash2, UserCheck } from "lucide-react";
+import {
+  createFinanceReport,
+  createSong,
+  createWeeklyAgenda,
+  deleteWeeklyAgenda,
+  updateProfileRoles,
+  updateServiceRoster,
+  updateWeeklyAgenda
+} from "@/app/admin/actions";
 import type { FinanceReport, Profile, Service, Song, WeeklyAgendaItem } from "@/lib/types";
 
 type AdminFormProps = {
@@ -42,39 +50,79 @@ export function AdminForm({ agenda, services, songs, reports, profiles }: AdminF
           </span>
           <h2 className="text-2xl font-black text-ink">Agenda mingguan</h2>
         </div>
+        <form action={createWeeklyAgenda} className="mt-5 rounded border border-teal/20 bg-teal/5 p-4">
+          <h3 className="text-lg font-black text-ink">Tambah agenda baru</h3>
+          <div className="mt-3 grid gap-3 md:grid-cols-2">
+            <Field label="Hari">
+              <input className={inputClass} name="weekday" placeholder="Monday" />
+            </Field>
+            <Field label="Jam">
+              <input className={inputClass} name="time" placeholder="19:00" />
+            </Field>
+            <Field label="Nama kegiatan">
+              <input className={inputClass} name="title" placeholder="Latihan vokal" />
+            </Field>
+            <Field label="Lokasi">
+              <input className={inputClass} name="location" placeholder="HKBP Bintara" />
+            </Field>
+            <Field label="Deskripsi">
+              <textarea className={inputClass} name="description" rows={2} placeholder="Deskripsi singkat kegiatan" />
+            </Field>
+            <Field label="Warna">
+              <select className={inputClass} name="accent" defaultValue="teal">
+                <option value="teal">Teal</option>
+                <option value="amber">Amber</option>
+                <option value="rose">Rose</option>
+                <option value="blue">Blue</option>
+              </select>
+            </Field>
+          </div>
+          <button className="focus-ring mt-4 inline-flex items-center gap-2 rounded bg-teal px-4 py-2 text-sm font-black text-white">
+            <CalendarPlus size={16} /> Tambah agenda
+          </button>
+        </form>
+
         <div className="mt-5 grid gap-4 lg:grid-cols-2">
           {agenda.map((item) => (
-            <form key={item.id} action={updateWeeklyAgenda} className="rounded border border-ink/10 bg-white/75 p-4">
-              <input type="hidden" name="id" value={item.id} />
-              <div className="grid gap-3">
-                <Field label="Hari">
-                  <input className={inputClass} name="weekday" defaultValue={item.weekday} />
-                </Field>
-                <Field label="Jam">
-                  <input className={inputClass} name="time" defaultValue={item.time} />
-                </Field>
-                <Field label="Nama kegiatan">
-                  <input className={inputClass} name="title" defaultValue={item.title} />
-                </Field>
-                <Field label="Lokasi">
-                  <input className={inputClass} name="location" defaultValue={item.location} />
-                </Field>
-                <Field label="Deskripsi">
-                  <textarea className={inputClass} name="description" defaultValue={item.description} rows={2} />
-                </Field>
-                <Field label="Warna">
-                  <select className={inputClass} name="accent" defaultValue={item.accent}>
-                    <option value="teal">Teal</option>
-                    <option value="amber">Amber</option>
-                    <option value="rose">Rose</option>
-                    <option value="blue">Blue</option>
-                  </select>
-                </Field>
-              </div>
-              <button className="focus-ring mt-4 inline-flex items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-black text-white">
-                <Save size={16} /> Simpan agenda
-              </button>
-            </form>
+            <div key={item.id} className="rounded border border-ink/10 bg-white/75 p-4">
+              <form action={updateWeeklyAgenda}>
+                <input type="hidden" name="id" value={item.id} />
+                <div className="grid gap-3">
+                  <Field label="Hari">
+                    <input className={inputClass} name="weekday" defaultValue={item.weekday} />
+                  </Field>
+                  <Field label="Jam">
+                    <input className={inputClass} name="time" defaultValue={item.time} />
+                  </Field>
+                  <Field label="Nama kegiatan">
+                    <input className={inputClass} name="title" defaultValue={item.title} />
+                  </Field>
+                  <Field label="Lokasi">
+                    <input className={inputClass} name="location" defaultValue={item.location} />
+                  </Field>
+                  <Field label="Deskripsi">
+                    <textarea className={inputClass} name="description" defaultValue={item.description} rows={2} />
+                  </Field>
+                  <Field label="Warna">
+                    <select className={inputClass} name="accent" defaultValue={item.accent}>
+                      <option value="teal">Teal</option>
+                      <option value="amber">Amber</option>
+                      <option value="rose">Rose</option>
+                      <option value="blue">Blue</option>
+                    </select>
+                  </Field>
+                </div>
+                <button className="focus-ring mt-4 inline-flex items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-black text-white">
+                  <Save size={16} /> Simpan agenda
+                </button>
+              </form>
+              <form action={deleteWeeklyAgenda} className="mt-3">
+                <input type="hidden" name="id" value={item.id} />
+                <button className="focus-ring inline-flex items-center gap-2 rounded border border-ember/20 bg-ember/10 px-4 py-2 text-sm font-black text-ember">
+                  <Trash2 size={16} /> Hapus agenda
+                </button>
+              </form>
+            </div>
           ))}
         </div>
       </section>
@@ -139,8 +187,11 @@ export function AdminForm({ agenda, services, songs, reports, profiles }: AdminF
             <Field label="Tags (pisahkan dengan koma)">
               <input className={inputClass} name="tags" placeholder="ende, ibadah, youth" />
             </Field>
-            <Field label="URL gambar chord (pisahkan dengan koma untuk 2 gambar)">
-              <textarea className={inputClass} name="image_urls" rows={3} placeholder="https://..." />
+            <Field label="Upload gambar chord">
+              <input className={inputClass} name="image_files" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+            </Field>
+            <Field label="URL gambar chord cadangan (opsional)">
+              <textarea className={inputClass} name="image_urls" rows={3} placeholder="https://... kalau file sudah ada di tempat lain" />
             </Field>
           </div>
           <button className="focus-ring mt-4 inline-flex items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-black text-white">

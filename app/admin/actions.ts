@@ -18,6 +18,12 @@ function list(value: string) {
     .filter(Boolean);
 }
 
+function fileList(formData: FormData, key: string) {
+  return formData
+    .getAll(key)
+    .filter((value): value is File => value instanceof File && value.size > 0);
+}
+
 async function requireAdmin() {
   if (!isSupabaseConfigured()) return createClient();
 
@@ -56,6 +62,38 @@ export async function updateWeeklyAgenda(formData: FormData) {
       accent: text(formData, "accent") || "teal"
     })
     .eq("id", id);
+
+  refresh();
+}
+
+export async function createWeeklyAgenda(formData: FormData) {
+  const supabase = await requireAdmin();
+
+  const { data: maxRow } = await supabase
+    .from("weekly_agenda")
+    .select("sort_order")
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  await supabase.from("weekly_agenda").insert({
+    weekday: text(formData, "weekday"),
+    time: text(formData, "time"),
+    title: text(formData, "title"),
+    description: text(formData, "description"),
+    location: text(formData, "location"),
+    accent: text(formData, "accent") || "teal",
+    sort_order: Number(maxRow?.sort_order ?? 0) + 1
+  });
+
+  refresh();
+}
+
+export async function deleteWeeklyAgenda(formData: FormData) {
+  const supabase = await requireAdmin();
+  const id = text(formData, "id");
+
+  await supabase.from("weekly_agenda").delete().eq("id", id);
 
   refresh();
 }
@@ -101,6 +139,7 @@ export async function updateServiceRoster(formData: FormData) {
 export async function createSong(formData: FormData) {
   const supabase = await requireAdmin();
   const imageUrls = list(text(formData, "image_urls"));
+  const imageFiles = fileList(formData, "image_files");
 
   const { data: song } = await supabase
     .from("songs")
@@ -113,14 +152,34 @@ export async function createSong(formData: FormData) {
     .select("id")
     .single();
 
-  if (song && imageUrls.length > 0) {
-    await supabase.from("song_images").insert(
-      imageUrls.map((imagePath, index) => ({
+  if (song) {
+    const uploadedUrls: string[] = [];
+    for (let index = 0; index < imageFiles.length; index += 1) {
+      const file = imageFiles[index];
+      const extension = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
+      const path = `${song.id}/${Date.now()}-${index}.${extension}`;
+      const { error } = await supabase.storage.from("chord-images").upload(path, file, {
+        contentType: file.type || "image/jpeg",
+        upsert: false
+      });
+
+      if (!error) {
+        const { data } = supabase.storage.from("chord-images").getPublicUrl(path);
+        uploadedUrls.push(data.publicUrl);
+      }
+    }
+
+    const allImages = [...uploadedUrls, ...imageUrls];
+
+    if (allImages.length > 0) {
+      await supabase.from("song_images").insert(
+        allImages.map((imagePath, index) => ({
         song_id: song.id,
         image_path: imagePath,
         sort_order: index
-      }))
-    );
+        }))
+      );
+    }
   }
 
   refresh();

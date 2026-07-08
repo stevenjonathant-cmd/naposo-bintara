@@ -50,6 +50,7 @@ export type WeeklyAgendaItem = {
   description: string;
   location: string;
   accent: "teal" | "amber" | "rose" | "blue";
+  sort_order?: number;
 };
 
 export type Profile = {
