@@ -164,9 +164,9 @@ create policy "assignments_admin_all" on public.service_assignments for all usin
 create policy "events_public_published" on public.events for select using (status = 'published' or public.is_admin());
 create policy "events_admin_all" on public.events for all using (public.is_admin()) with check (public.is_admin());
 
-create policy "songs_members_read" on public.songs for select using (public.is_approved());
+create policy "songs_public_read" on public.songs for select using (true);
 create policy "songs_admin_all" on public.songs for all using (public.is_admin()) with check (public.is_admin());
-create policy "song_images_members_read" on public.song_images for select using (public.is_approved());
+create policy "song_images_public_read" on public.song_images for select using (true);
 create policy "song_images_admin_all" on public.song_images for all using (public.is_admin()) with check (public.is_admin());
 
 create policy "finance_read_finance" on public.finance_reports for select using (public.is_approved() and public.is_finance());

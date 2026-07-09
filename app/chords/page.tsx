@@ -57,6 +57,14 @@ export default async function ChordsPage({ searchParams }: { searchParams?: { q?
           <span>Judul Lagu</span>
           <span className="hidden sm:inline">Open</span>
         </div>
+        {songs.length === 0 && (
+          <div className="px-6 py-14 text-center">
+            <p className="text-2xl font-black text-ink">Belum ada lagu yang tampil.</p>
+            <p className="mx-auto mt-2 max-w-xl text-sm font-semibold leading-6 text-graphite/60">
+              Coba kosongkan pencarian. Jika admin sudah upload lagu, akses database mungkin masih menyembunyikan data chord.
+            </p>
+          </div>
+        )}
         {songs.map((song) => (
           <Link
             key={song.id}
