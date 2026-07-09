@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, CalendarDays, Instagram, MapPin, Music2, Sparkles, Ticket, UsersRound } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, CalendarDays, Instagram, MapPin, Music2, Ticket, UsersRound } from "lucide-react";
 import { EventList } from "@/components/event-list";
+import { HeroVideo } from "@/components/hero-video";
 import { WeekAgenda } from "@/components/week-agenda";
 import { copy, getLocale } from "@/lib/i18n";
 import { getEvents, getWeeklyAgenda } from "@/lib/data";
@@ -29,14 +31,14 @@ const featuredEvents = [
     date: "Coming soon",
     location: "Yogyakarta",
     description: "Kegiatan kunjungan dan persekutuan bersama untuk membangun relasi, pelayanan, dan pengalaman iman.",
-    tone: "bg-teal text-white"
+    image: "/brand/event-kunjungan-jogja.png"
   },
   {
     title: "Retreat Remaja Naposo",
     date: "Coming soon",
     location: "To be announced",
     description: "Retreat untuk bertumbuh bersama dalam firman, doa, fellowship, dan semangat pelayanan.",
-    tone: "bg-ink text-white"
+    image: "/brand/event-retreat-reconnect.png"
   }
 ];
 
@@ -47,49 +49,28 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
 
   return (
     <main className="bg-[#f7f7f4]">
-      <section className="relative overflow-hidden bg-white">
-        <div className="mx-auto grid min-h-[calc(100svh-80px)] max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center lg:px-8">
-          <div className="relative z-10 flex flex-col justify-center">
-            <p className="inline-flex w-fit items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-ember shadow-sm">
-              <Sparkles size={15} /> NHKBP Bintara
-            </p>
-            <h1 className="mt-6 max-w-4xl text-6xl font-black uppercase leading-[0.88] tracking-tight text-ink sm:text-7xl lg:text-8xl">
-              Naposo Bintara
+      <section className="relative min-h-[calc(100svh-80px)] overflow-hidden bg-black text-white">
+        <HeroVideo />
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-80px)] max-w-7xl flex-col justify-end px-4 pb-10 pt-28 sm:px-6 lg:px-8 lg:pb-16">
+          <div className="max-w-5xl">
+            <Image src="/brand/logo-hkbp-bintara.png" alt="NHKBP Bintara" width={170} height={170} className="mb-6 h-20 w-20 rounded-full bg-white/90 object-contain p-2 sm:h-24 sm:w-24" priority />
+            <p className="eyebrow text-white/70">Naposobulung HKBP Bintara</p>
+            <h1 className="mt-4 max-w-5xl text-6xl font-black uppercase leading-[0.86] tracking-tight text-white sm:text-7xl lg:text-8xl">
+              Worship. Serve. Grow Together.
             </h1>
-            <p className="mt-6 max-w-xl text-lg font-bold leading-8 text-graphite/70">
+            <p className="mt-6 max-w-2xl text-lg font-bold leading-8 text-white/78">
               Agenda mingguan, info kegiatan, roster pelayanan, keuangan, dan chord untuk Naposobulung HKBP Bintara.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="#agenda" className="church-button-dark">
+              <Link href="#agenda" className="church-button-light">
                 Agenda This Week <ArrowRight size={18} />
               </Link>
-              <Link href="/petugas-pelayanan" className="church-button-light">
+              <Link href="/petugas-pelayanan" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#5b2bd6] px-5 py-3 text-sm font-black text-white transition hover:bg-[#4620aa] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
                 Petugas Pelayanan <UsersRound size={18} />
               </Link>
-            </div>
-          </div>
-
-          <div className="photo-panel min-h-[560px] rounded-[36px] p-5 shadow-glow sm:p-7">
-            <div className="absolute bottom-7 left-7 right-7">
-              <p className="max-w-xl text-4xl font-black uppercase leading-none text-white sm:text-5xl">
-                Built for worship, service, and community.
-              </p>
-            </div>
-            <div className="ml-auto max-w-sm rounded-[28px] border border-white/15 bg-black/35 p-5 text-white backdrop-blur">
-              <p className="flex items-center gap-2 text-sm font-black uppercase tracking-[0.22em] text-mango">
-                <CalendarDays size={18} /> This Week
-              </p>
-              <div className="mt-5 grid gap-3">
-                {agenda.slice(0, 4).map((item) => (
-                  <div key={item.id} className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/10 p-4">
-                    <div>
-                      <p className="text-sm font-black text-white/55">{item.weekday}</p>
-                      <p className="mt-1 font-black">{item.title}</p>
-                    </div>
-                    <p className="rounded-full bg-white px-3 py-1 text-sm font-black text-ink">{item.time}</p>
-                  </div>
-                ))}
-              </div>
+              <Link href="/chords" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-3 text-sm font-black text-white backdrop-blur transition hover:bg-white hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                Buku Ende Chords <Music2 size={18} />
+              </Link>
             </div>
           </div>
         </div>
@@ -111,17 +92,21 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
         </div>
         <div className="grid gap-5 lg:grid-cols-2">
           {featuredEvents.map((event) => (
-            <article key={event.title} className="church-card">
-              <div className={`${event.tone} poster-panel min-h-80 p-7`}>
-                <p className="eyebrow text-white/70">Poster Event</p>
-                <h3 className="mt-10 max-w-md text-5xl font-black uppercase leading-none sm:text-6xl">{event.title}</h3>
-                <div className="mt-8 flex flex-wrap gap-3 text-sm font-black">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2">
-                    <CalendarDays size={16} /> {event.date}
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2">
-                    <MapPin size={16} /> {event.location}
-                  </span>
+            <article key={event.title} className="church-card group">
+              <div className="relative min-h-[520px] overflow-hidden bg-ink">
+                <Image src={event.image} alt={event.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/18 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <p className="eyebrow text-white/70">Featured Event</p>
+                  <h3 className="mt-4 max-w-md text-5xl font-black uppercase leading-none sm:text-6xl">{event.title}</h3>
+                  <div className="mt-6 flex flex-wrap gap-3 text-sm font-black">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2 backdrop-blur">
+                      <CalendarDays size={16} /> {event.date}
+                    </span>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-2 backdrop-blur">
+                      <MapPin size={16} /> {event.location}
+                    </span>
+                  </div>
                 </div>
               </div>
               <div className="p-5">

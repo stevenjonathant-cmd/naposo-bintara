@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Church, Globe2, LogIn, Menu, X } from "lucide-react";
+import Image from "next/image";
+import { Globe2, LogIn, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const nav = [
@@ -21,8 +22,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="focus-ring flex items-center gap-3 rounded-md">
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-ember text-white shadow-glow">
-            <Church size={20} />
+          <span className="relative h-12 w-12 overflow-hidden rounded-full bg-white shadow-sm">
+            <Image src="/brand/logo-hkbp-bintara.png" alt="NHKBP Bintara" fill sizes="48px" className="object-contain p-1" priority />
           </span>
           <span>
             <span className="block text-base font-black uppercase leading-none tracking-tight text-ink">Naposo Bintara</span>

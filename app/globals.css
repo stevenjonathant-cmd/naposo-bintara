@@ -26,7 +26,7 @@ textarea {
 }
 
 .focus-ring {
-  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet;
 }
 
 .glass-panel {
@@ -50,11 +50,11 @@ textarea {
 }
 
 .church-button-dark {
-  @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal;
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet;
 }
 
 .church-button-light {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-black text-ink transition hover:bg-ink hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal;
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-black text-ink transition hover:bg-ink hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet;
 }
 
 .photo-panel {
@@ -64,9 +64,9 @@ textarea {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.74)),
     radial-gradient(circle at 72% 28%, rgba(255, 255, 255, 0.42), transparent 7rem),
-    radial-gradient(circle at 42% 44%, rgba(15, 118, 110, 0.75), transparent 18rem),
-    radial-gradient(circle at 16% 22%, rgba(216, 76, 61, 0.72), transparent 16rem),
-    linear-gradient(135deg, #0b1020, #151b2d 46%, #0f766e);
+    radial-gradient(circle at 42% 44%, rgba(91, 43, 214, 0.78), transparent 18rem),
+    radial-gradient(circle at 16% 22%, rgba(124, 58, 237, 0.68), transparent 16rem),
+    linear-gradient(135deg, #0b1020, #151b2d 46%, #43208f);
 }
 
 .photo-panel::before {
