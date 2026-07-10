@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, CalendarDays, Instagram, MapPin, Music2, Ticket, UsersRound } from "lucide-react";
 import { EventList } from "@/components/event-list";
 import { HeroVideo } from "@/components/hero-video";
+import { InstagramEmbedGrid } from "@/components/instagram-embed-grid";
 import { WeekAgenda } from "@/components/week-agenda";
 import { copy, getLocale } from "@/lib/i18n";
 import { getEvents, getWeeklyAgenda } from "@/lib/data";
@@ -10,17 +11,17 @@ import { getEvents, getWeeklyAgenda } from "@/lib/data";
 const instagramPosts = [
   {
     title: "Naposobulung Moment",
-    href: "https://www.instagram.com/p/DXlpSDiPK2e//",
+    href: "https://www.instagram.com/p/DXlpSDiPK2e/",
     label: "Post 01"
   },
   {
     title: "Youth Fellowship",
-    href: "https://www.instagram.com/p/DYj6IToD7t8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    href: "https://www.instagram.com/p/DYj6IToD7t8/",
     label: "Post 02"
   },
   {
     title: "Pelayanan & Komunitas",
-    href: "https://www.instagram.com/p/DYl4lcpj1YA/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    href: "https://www.instagram.com/p/DYl4lcpj1YA/",
     label: "Post 03"
   }
 ];
@@ -135,21 +136,7 @@ export default async function Home({ searchParams }: { searchParams?: { lang?: s
             Instagram Naposobulung <Instagram size={16} />
           </Link>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {instagramPosts.map((post) => (
-            <Link key={post.href} href={post.href} target="_blank" className="focus-ring group church-card block">
-              <div className="poster-panel min-h-64 bg-ink p-6 text-white transition group-hover:bg-ember">
-                <Instagram size={24} />
-                <p className="mt-12 text-sm font-black uppercase tracking-[0.24em] text-white/60">{post.label}</p>
-                <h3 className="mt-3 text-3xl font-black uppercase leading-none">{post.title}</h3>
-              </div>
-              <div className="flex items-center justify-between p-4 text-sm font-black text-ink">
-                View on Instagram
-                <ArrowRight size={16} />
-              </div>
-            </Link>
-          ))}
-        </div>
+        <InstagramEmbedGrid posts={instagramPosts} />
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
